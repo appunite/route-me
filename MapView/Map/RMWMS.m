@@ -29,7 +29,6 @@
 
 @implementation RMWMS
 
-@synthesize urlPrefix;
 @synthesize layers;
 @synthesize styles;
 @synthesize queryLayers;
@@ -55,6 +54,10 @@
         [self setExceptions:@"application/vnd.ogc.se_inimage"];
     }
     return self;
+}
+
+- (NSString *)urlPrefix {
+    return [urlPrefix retain];
 }
 
 -(void)setUrlPrefix:(NSString *)newUrlPrefix
