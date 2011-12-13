@@ -46,7 +46,7 @@
 	tile = _tile;
 	layer = nil;
 	lastUsedTime = nil;
-	screenLocation = CGRectZero;
+	screenLocation = CGRectInfinite;
 
         [self makeLayer];
 
@@ -175,24 +175,20 @@
 		layer.anchorPoint = CGPointZero;
 		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
 		layer.position = screenLocation.origin;
+        layer.opacity = 1.0f;
 		
-		NSMutableDictionary *customActions=[NSMutableDictionary dictionaryWithDictionary:[layer actions]];
-		
-		[customActions setObject:[NSNull null] forKey:@"position"];
-		[customActions setObject:[NSNull null] forKey:@"bounds"];
-		[customActions setObject:[NSNull null] forKey:kCAOnOrderOut];
-        [customActions setObject:[NSNull null] forKey:kCAOnOrderIn];
-
-		CATransition *fadein = [[CATransition alloc] init];
-		fadein.duration = 0.3;
-		fadein.type = kCATransitionReveal;
-		[customActions setObject:fadein forKey:@"contents"];
-		[fadein release];
-
-		
-		layer.actions=customActions;
-		
-		layer.edgeAntialiasingMask = 0;
+		layer.edgeAntialiasingMask = 10;
+        
+        CABasicAnimation *opacityAnim = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        opacityAnim.fromValue = [NSNumber numberWithFloat:0.0];
+        opacityAnim.toValue = [NSNumber numberWithFloat:1.0];
+        opacityAnim.removedOnCompletion = YES;
+        opacityAnim.fillMode = kCAFillModeBackwards;
+        
+        CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+        animGroup.animations = [NSArray arrayWithObjects:opacityAnim, nil];
+        animGroup.duration = 0.5;
+        [layer addAnimation:animGroup forKey:nil];
 	}
 }
 
@@ -214,14 +210,44 @@
 - (void) setScreenLocation: (CGRect)newScreenLocation
 {
 //	RMLog(@"location moving from %f %f to %f %f", screenLocation.origin.x, screenLocation.origin.y, newScreenLocation.origin.x, newScreenLocation.origin.y);
+    
+    
+    if (layer != nil) {
+        layer.bounds = CGRectMake(0, 0, newScreenLocation.size.width, newScreenLocation.size.height);
+        layer.position = newScreenLocation.origin;
+        if (!CGRectIsInfinite(screenLocation)) {
+            UIBezierPath *movePath = [UIBezierPath bezierPath];
+            [movePath moveToPoint:screenLocation.origin];
+            [movePath addLineToPoint:newScreenLocation.origin];
+            CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+            moveAnim.path = movePath.CGPath;
+            moveAnim.removedOnCompletion = YES;
+            moveAnim.fillMode = kCAFillModeBackwards;
+            
+            
+            UIBezierPath *resizePath = [UIBezierPath bezierPath];
+            [resizePath moveToPoint:*((CGPoint *)&screenLocation.size)];
+            [resizePath addLineToPoint:*((CGPoint *)&newScreenLocation.size)];
+            CAKeyframeAnimation *resizeAnim = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
+            resizeAnim.path = resizePath.CGPath;
+            resizeAnim.removedOnCompletion = YES;
+            resizeAnim.fillMode = kCAFillModeBackwards;
+            
+            CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+            animGroup.animations = [NSArray arrayWithObjects:moveAnim, resizeAnim, nil];
+            animGroup.duration = 0.5;
+            [layer addAnimation:animGroup forKey:nil];
+        }
+    }
+    
 	screenLocation = newScreenLocation;
 	
-	if (layer != nil)
-	{
-		// layer.frame = screenLocation;
-		layer.position = screenLocation.origin;
-		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
-	}
+//	if (layer != nil)
+//	{
+//		// layer.frame = screenLocation;
+//		layer.position = screenLocation.origin;
+//		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
+//	}
 	
 	[self touch];
 }
