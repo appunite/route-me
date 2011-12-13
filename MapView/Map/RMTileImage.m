@@ -242,13 +242,6 @@
     
 	screenLocation = newScreenLocation;
 	
-//	if (layer != nil)
-//	{
-//		// layer.frame = screenLocation;
-//		layer.position = screenLocation.origin;
-//		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
-//	}
-	
 	[self touch];
 }
 
