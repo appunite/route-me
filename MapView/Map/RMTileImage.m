@@ -179,16 +179,16 @@
 		
 		layer.edgeAntialiasingMask = 10;
         
-        CABasicAnimation *opacityAnim = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        opacityAnim.fromValue = [NSNumber numberWithFloat:0.0];
-        opacityAnim.toValue = [NSNumber numberWithFloat:1.0];
-        opacityAnim.removedOnCompletion = YES;
-        opacityAnim.fillMode = kCAFillModeBackwards;
-        
-        CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-        animGroup.animations = [NSArray arrayWithObjects:opacityAnim, nil];
-        animGroup.duration = 0.5;
-        [layer addAnimation:animGroup forKey:nil];
+//        CABasicAnimation *opacityAnim = [CABasicAnimation animationWithKeyPath:@"opacity"];
+//        opacityAnim.fromValue = [NSNumber numberWithFloat:0.0];
+//        opacityAnim.toValue = [NSNumber numberWithFloat:1.0];
+//        opacityAnim.removedOnCompletion = YES;
+//        opacityAnim.fillMode = kCAFillModeBackwards;
+//        
+//        CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+//        animGroup.animations = [NSArray arrayWithObjects:opacityAnim, nil];
+//        animGroup.duration = 0.5;
+//        [layer addAnimation:animGroup forKey:nil];
 	}
 }
 
@@ -216,27 +216,27 @@
         layer.bounds = CGRectMake(0, 0, newScreenLocation.size.width, newScreenLocation.size.height);
         layer.position = newScreenLocation.origin;
         if (!CGRectIsInfinite(screenLocation)) {
-            UIBezierPath *movePath = [UIBezierPath bezierPath];
-            [movePath moveToPoint:screenLocation.origin];
-            [movePath addLineToPoint:newScreenLocation.origin];
-            CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-            moveAnim.path = movePath.CGPath;
-            moveAnim.removedOnCompletion = YES;
-            moveAnim.fillMode = kCAFillModeBackwards;
-            
-            
-            UIBezierPath *resizePath = [UIBezierPath bezierPath];
-            [resizePath moveToPoint:*((CGPoint *)&screenLocation.size)];
-            [resizePath addLineToPoint:*((CGPoint *)&newScreenLocation.size)];
-            CAKeyframeAnimation *resizeAnim = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
-            resizeAnim.path = resizePath.CGPath;
-            resizeAnim.removedOnCompletion = YES;
-            resizeAnim.fillMode = kCAFillModeBackwards;
-            
-            CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-            animGroup.animations = [NSArray arrayWithObjects:moveAnim, resizeAnim, nil];
-            animGroup.duration = 0.5;
-            [layer addAnimation:animGroup forKey:nil];
+//            UIBezierPath *movePath = [UIBezierPath bezierPath];
+//            [movePath moveToPoint:screenLocation.origin];
+//            [movePath addLineToPoint:newScreenLocation.origin];
+//            CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+//            moveAnim.path = movePath.CGPath;
+//            moveAnim.removedOnCompletion = YES;
+//            moveAnim.fillMode = kCAFillModeBackwards;
+//            
+//            
+//            UIBezierPath *resizePath = [UIBezierPath bezierPath];
+//            [resizePath moveToPoint:*((CGPoint *)&screenLocation.size)];
+//            [resizePath addLineToPoint:*((CGPoint *)&newScreenLocation.size)];
+//            CAKeyframeAnimation *resizeAnim = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
+//            resizeAnim.path = resizePath.CGPath;
+//            resizeAnim.removedOnCompletion = YES;
+//            resizeAnim.fillMode = kCAFillModeBackwards;
+//            
+//            CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+//            animGroup.animations = [NSArray arrayWithObjects:moveAnim, resizeAnim, nil];
+//            animGroup.duration = 0.5;
+//            [layer addAnimation:animGroup forKey:nil];
         }
     }
     

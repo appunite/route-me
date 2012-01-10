@@ -201,6 +201,14 @@
 		B8F3FC650EA2E792004D8F85 /* RMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F3FC630EA2E792004D8F85 /* RMMarker.m */; };
 		B8FA92190E9315EC003A9FE6 /* RMLayerCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = B8FA92170E9315EC003A9FE6 /* RMLayerCollection.h */; };
 		B8FA921A0E9315EC003A9FE6 /* RMLayerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA92180E9315EC003A9FE6 /* RMLayerCollection.m */; };
+		BB2DF74B14BADCF600AF0859 /* RMAUPath.h in Headers */ = {isa = PBXBuildFile; fileRef = BB2DF74914BADCF600AF0859 /* RMAUPath.h */; };
+		BB2DF74C14BADCF600AF0859 /* RMAUPath.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2DF74A14BADCF600AF0859 /* RMAUPath.m */; };
+		BB2DF75114BADFEA00AF0859 /* RMTrackPointsDAO.h in Headers */ = {isa = PBXBuildFile; fileRef = BB2DF74F14BADFEA00AF0859 /* RMTrackPointsDAO.h */; };
+		BB2DF75214BADFEA00AF0859 /* RMTrackPointsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2DF75014BADFEA00AF0859 /* RMTrackPointsDAO.m */; };
+		BB2DF75814BAE05900AF0859 /* AUOpenGISCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = BB2DF75414BAE05900AF0859 /* AUOpenGISCoordinate.h */; };
+		BB2DF75914BAE05900AF0859 /* AUOpenGISCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2DF75514BAE05900AF0859 /* AUOpenGISCoordinate.m */; };
+		BB2DF75A14BAE05900AF0859 /* AUOpenGISParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BB2DF75614BAE05900AF0859 /* AUOpenGISParser.h */; };
+		BB2DF75B14BAE05900AF0859 /* AUOpenGISParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2DF75714BAE05900AF0859 /* AUOpenGISParser.m */; };
 		D1437B34122869E400888DAE /* RMDBTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D1437B30122869E400888DAE /* RMDBTileImage.m */; };
 		D1437B35122869E400888DAE /* RMDBTileImage.h in Headers */ = {isa = PBXBuildFile; fileRef = D1437B31122869E400888DAE /* RMDBTileImage.h */; };
 		D1437B36122869E400888DAE /* RMDBMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D1437B32122869E400888DAE /* RMDBMapSource.m */; };
@@ -391,6 +399,14 @@
 		B8F3FC630EA2E792004D8F85 /* RMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarker.m; sourceTree = "<group>"; };
 		B8FA92170E9315EC003A9FE6 /* RMLayerCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLayerCollection.h; sourceTree = "<group>"; };
 		B8FA92180E9315EC003A9FE6 /* RMLayerCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLayerCollection.m; sourceTree = "<group>"; };
+		BB2DF74914BADCF600AF0859 /* RMAUPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAUPath.h; sourceTree = "<group>"; };
+		BB2DF74A14BADCF600AF0859 /* RMAUPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAUPath.m; sourceTree = "<group>"; };
+		BB2DF74F14BADFEA00AF0859 /* RMTrackPointsDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTrackPointsDAO.h; sourceTree = "<group>"; };
+		BB2DF75014BADFEA00AF0859 /* RMTrackPointsDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTrackPointsDAO.m; sourceTree = "<group>"; };
+		BB2DF75414BAE05900AF0859 /* AUOpenGISCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUOpenGISCoordinate.h; sourceTree = "<group>"; };
+		BB2DF75514BAE05900AF0859 /* AUOpenGISCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUOpenGISCoordinate.m; sourceTree = "<group>"; };
+		BB2DF75614BAE05900AF0859 /* AUOpenGISParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUOpenGISParser.h; sourceTree = "<group>"; };
+		BB2DF75714BAE05900AF0859 /* AUOpenGISParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUOpenGISParser.m; sourceTree = "<group>"; };
 		C7A967500E8412930031BA75 /* RMAbstractMercatorWebSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbstractMercatorWebSource.h; sourceTree = "<group>"; };
 		C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractMercatorWebSource.m; sourceTree = "<group>"; };
 		C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMVirtualEarthSource.h; sourceTree = "<group>"; };
@@ -495,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				2BF0E4540F73119C0095A926 /* Documentation */,
+				BB2DF75314BAE05900AF0859 /* AUOpenGIS */,
 				2B246B230F8AE20300A7D55D /* Testing */,
 				B8C9740D0E8A196E007D16AD /* Map */,
 				B83E67570E80F3FB001663B6 /* Resources */,
@@ -776,6 +793,8 @@
 				B8CEB1C40ED5A3480014C431 /* RMPath.m */,
 				25757F4D1291C8640083D504 /* RMCircle.h */,
 				25757F4E1291C8640083D504 /* RMCircle.m */,
+				BB2DF74914BADCF600AF0859 /* RMAUPath.h */,
+				BB2DF74A14BADCF600AF0859 /* RMAUPath.m */,
 			);
 			name = "Markers and other layers";
 			sourceTree = "<group>";
@@ -783,6 +802,7 @@
 		B8C9740D0E8A196E007D16AD /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				BB2DF74E14BADF4800AF0859 /* DAO */,
 				175701DB1323C2CF00A5D314 /* iOS Additions */,
 				17F02BB01319BA4B00260C6B /* RouteMe.h */,
 				96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */,
@@ -831,6 +851,26 @@
 				B83E64B70E80E73F001663B6 /* RMPixel.c */,
 			);
 			name = "Coordinate Systems";
+			sourceTree = "<group>";
+		};
+		BB2DF74E14BADF4800AF0859 /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				BB2DF74F14BADFEA00AF0859 /* RMTrackPointsDAO.h */,
+				BB2DF75014BADFEA00AF0859 /* RMTrackPointsDAO.m */,
+			);
+			name = DAO;
+			sourceTree = "<group>";
+		};
+		BB2DF75314BAE05900AF0859 /* AUOpenGIS */ = {
+			isa = PBXGroup;
+			children = (
+				BB2DF75414BAE05900AF0859 /* AUOpenGISCoordinate.h */,
+				BB2DF75514BAE05900AF0859 /* AUOpenGISCoordinate.m */,
+				BB2DF75614BAE05900AF0859 /* AUOpenGISParser.h */,
+				BB2DF75714BAE05900AF0859 /* AUOpenGISParser.m */,
+			);
+			path = AUOpenGIS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -898,6 +938,10 @@
 				175701DE1323C2E900A5D314 /* NSUserDefaults+RouteMe.h in Headers */,
 				DDA3E85613B00D9E004D861C /* RMMapQuestOSMSource.h in Headers */,
 				DDCD58D31406F8A400F59E0D /* RMTileStreamSource.h in Headers */,
+				BB2DF74B14BADCF600AF0859 /* RMAUPath.h in Headers */,
+				BB2DF75114BADFEA00AF0859 /* RMTrackPointsDAO.h in Headers */,
+				BB2DF75814BAE05900AF0859 /* AUOpenGISCoordinate.h in Headers */,
+				BB2DF75A14BAE05900AF0859 /* AUOpenGISParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,6 +1248,10 @@
 				175701DF1323C2E900A5D314 /* NSUserDefaults+RouteMe.m in Sources */,
 				DDA3E85713B00D9E004D861C /* RMMapQuestOSMSource.m in Sources */,
 				DDCD58D41406F8A400F59E0D /* RMTileStreamSource.m in Sources */,
+				BB2DF74C14BADCF600AF0859 /* RMAUPath.m in Sources */,
+				BB2DF75214BADFEA00AF0859 /* RMTrackPointsDAO.m in Sources */,
+				BB2DF75914BAE05900AF0859 /* AUOpenGISCoordinate.m in Sources */,
+				BB2DF75B14BAE05900AF0859 /* AUOpenGISParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
