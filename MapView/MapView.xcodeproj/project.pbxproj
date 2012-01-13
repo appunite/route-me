@@ -209,6 +209,8 @@
 		BB2DF75914BAE05900AF0859 /* AUOpenGISCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2DF75514BAE05900AF0859 /* AUOpenGISCoordinate.m */; };
 		BB2DF75A14BAE05900AF0859 /* AUOpenGISParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BB2DF75614BAE05900AF0859 /* AUOpenGISParser.h */; };
 		BB2DF75B14BAE05900AF0859 /* AUOpenGISParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2DF75714BAE05900AF0859 /* AUOpenGISParser.m */; };
+		BBD6450314C0730400E0460E /* RMLocationMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = BBD6450114C0730400E0460E /* RMLocationMarker.h */; };
+		BBD6450414C0730400E0460E /* RMLocationMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD6450214C0730400E0460E /* RMLocationMarker.m */; };
 		D1437B34122869E400888DAE /* RMDBTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D1437B30122869E400888DAE /* RMDBTileImage.m */; };
 		D1437B35122869E400888DAE /* RMDBTileImage.h in Headers */ = {isa = PBXBuildFile; fileRef = D1437B31122869E400888DAE /* RMDBTileImage.h */; };
 		D1437B36122869E400888DAE /* RMDBMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D1437B32122869E400888DAE /* RMDBMapSource.m */; };
@@ -407,6 +409,8 @@
 		BB2DF75514BAE05900AF0859 /* AUOpenGISCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUOpenGISCoordinate.m; sourceTree = "<group>"; };
 		BB2DF75614BAE05900AF0859 /* AUOpenGISParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUOpenGISParser.h; sourceTree = "<group>"; };
 		BB2DF75714BAE05900AF0859 /* AUOpenGISParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUOpenGISParser.m; sourceTree = "<group>"; };
+		BBD6450114C0730400E0460E /* RMLocationMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLocationMarker.h; sourceTree = "<group>"; };
+		BBD6450214C0730400E0460E /* RMLocationMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLocationMarker.m; sourceTree = "<group>"; };
 		C7A967500E8412930031BA75 /* RMAbstractMercatorWebSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbstractMercatorWebSource.h; sourceTree = "<group>"; };
 		C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractMercatorWebSource.m; sourceTree = "<group>"; };
 		C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMVirtualEarthSource.h; sourceTree = "<group>"; };
@@ -795,6 +799,8 @@
 				25757F4E1291C8640083D504 /* RMCircle.m */,
 				BB2DF74914BADCF600AF0859 /* RMAUPath.h */,
 				BB2DF74A14BADCF600AF0859 /* RMAUPath.m */,
+				BBD6450114C0730400E0460E /* RMLocationMarker.h */,
+				BBD6450214C0730400E0460E /* RMLocationMarker.m */,
 			);
 			name = "Markers and other layers";
 			sourceTree = "<group>";
@@ -942,6 +948,7 @@
 				BB2DF75114BADFEA00AF0859 /* RMTrackPointsDAO.h in Headers */,
 				BB2DF75814BAE05900AF0859 /* AUOpenGISCoordinate.h in Headers */,
 				BB2DF75A14BAE05900AF0859 /* AUOpenGISParser.h in Headers */,
+				BBD6450314C0730400E0460E /* RMLocationMarker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1252,6 +1259,7 @@
 				BB2DF75214BADFEA00AF0859 /* RMTrackPointsDAO.m in Sources */,
 				BB2DF75914BAE05900AF0859 /* AUOpenGISCoordinate.m in Sources */,
 				BB2DF75B14BAE05900AF0859 /* AUOpenGISParser.m in Sources */,
+				BBD6450414C0730400E0460E /* RMLocationMarker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
