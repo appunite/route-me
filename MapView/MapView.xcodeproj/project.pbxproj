@@ -211,6 +211,8 @@
 		BB2DF75B14BAE05900AF0859 /* AUOpenGISParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2DF75714BAE05900AF0859 /* AUOpenGISParser.m */; };
 		BBD6450314C0730400E0460E /* RMLocationMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = BBD6450114C0730400E0460E /* RMLocationMarker.h */; };
 		BBD6450414C0730400E0460E /* RMLocationMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD6450214C0730400E0460E /* RMLocationMarker.m */; };
+		BBEB3DF714C4525E0032D66A /* marker-dot.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEB3DF214C44F690032D66A /* marker-dot.png */; };
+		BBEB3DF814C4525E0032D66A /* marker-dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEB3DF314C44F690032D66A /* marker-dot@2x.png */; };
 		D1437B34122869E400888DAE /* RMDBTileImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D1437B30122869E400888DAE /* RMDBTileImage.m */; };
 		D1437B35122869E400888DAE /* RMDBTileImage.h in Headers */ = {isa = PBXBuildFile; fileRef = D1437B31122869E400888DAE /* RMDBTileImage.h */; };
 		D1437B36122869E400888DAE /* RMDBMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D1437B32122869E400888DAE /* RMDBMapSource.m */; };
@@ -411,6 +413,8 @@
 		BB2DF75714BAE05900AF0859 /* AUOpenGISParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUOpenGISParser.m; sourceTree = "<group>"; };
 		BBD6450114C0730400E0460E /* RMLocationMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLocationMarker.h; sourceTree = "<group>"; };
 		BBD6450214C0730400E0460E /* RMLocationMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLocationMarker.m; sourceTree = "<group>"; };
+		BBEB3DF214C44F690032D66A /* marker-dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-dot.png"; sourceTree = "<group>"; };
+		BBEB3DF314C44F690032D66A /* marker-dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-dot@2x.png"; sourceTree = "<group>"; };
 		C7A967500E8412930031BA75 /* RMAbstractMercatorWebSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbstractMercatorWebSource.h; sourceTree = "<group>"; };
 		C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractMercatorWebSource.m; sourceTree = "<group>"; };
 		C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMVirtualEarthSource.h; sourceTree = "<group>"; };
@@ -772,6 +776,8 @@
 		B8474C610EB53A01006A0BC1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BBEB3DF214C44F690032D66A /* marker-dot.png */,
+				BBEB3DF314C44F690032D66A /* marker-dot@2x.png */,
 				966504690F6869810036562A /* loading.png */,
 				2B2BADD60FA3B45A00EE37AA /* marker-X.png */,
 				B8474C6D0EB53A41006A0BC1 /* marker-blue.png */,
@@ -999,6 +1005,7 @@
 				B8C974160E8A19B2007D16AD /* Headers */,
 				B8C974340E8A19B2007D16AD /* Sources */,
 				B8C9744F0E8A19B2007D16AD /* Frameworks */,
+				BBEB3DF614C452490032D66A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -1073,6 +1080,15 @@
 			files = (
 				2B580E2C0F8D201200D495B2 /* marker-red.png in Resources */,
 				2B2BADD70FA3B45A00EE37AA /* marker-X.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBEB3DF614C452490032D66A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBEB3DF714C4525E0032D66A /* marker-dot.png in Resources */,
+				BBEB3DF814C4525E0032D66A /* marker-dot@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

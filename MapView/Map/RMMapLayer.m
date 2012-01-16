@@ -62,19 +62,19 @@
     CGPoint newPosition = RMTranslateCGPointBy(oldPosition, delta);
     self.position = newPosition;
     
-    UIBezierPath *movePath = [UIBezierPath bezierPath];
-    [movePath moveToPoint:oldPosition];
-    [movePath addLineToPoint:newPosition];
-    CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    moveAnim.path = movePath.CGPath;
-    moveAnim.removedOnCompletion = YES;
-    moveAnim.fillMode = kCAFillModeForwards;
-    
-    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.animations = [NSArray arrayWithObjects:moveAnim, nil];
-    animGroup.duration = 0.5;
-    [self removeAnimationForKey:@"position"];
-    [self addAnimation:animGroup forKey:@"position"];
+//    UIBezierPath *movePath = [UIBezierPath bezierPath];
+//    [movePath moveToPoint:oldPosition];
+//    [movePath addLineToPoint:newPosition];
+//    CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+//    moveAnim.path = movePath.CGPath;
+//    moveAnim.removedOnCompletion = YES;
+//    moveAnim.fillMode = kCAFillModeForwards;
+//    
+//    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+//    animGroup.animations = [NSArray arrayWithObjects:moveAnim, nil];
+//    animGroup.duration = 0.5;
+//    [self removeAnimationForKey:@"position"];
+//    [self addAnimation:animGroup forKey:@"position"];
 }
 
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) pivot
@@ -91,48 +91,48 @@
     self.position = newPosition;
 	self.bounds = newRect;
     
-    CGPoint oldOrigin = oldRect.origin;
-    CGPoint newOrigin = newRect.origin;
+//    CGPoint oldOrigin = oldRect.origin;
+//    CGPoint newOrigin = newRect.origin;
+//    
+//    CGPoint oldSize = *((CGPoint *)&oldRect.size);
+//    CGPoint newSize = *((CGPoint *)(&newRect.size));
+//
+//    UIBezierPath *movePath = [UIBezierPath bezierPath];
+//    [movePath moveToPoint:oldPosition];
+//    [movePath addLineToPoint:newPosition];
+//    CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+//    moveAnim.path = movePath.CGPath;
+//    moveAnim.removedOnCompletion = YES;
+//    moveAnim.fillMode = kCAFillModeForwards;
     
-    CGPoint oldSize = *((CGPoint *)&oldRect.size);
-    CGPoint newSize = *((CGPoint *)(&newRect.size));
-
-    UIBezierPath *movePath = [UIBezierPath bezierPath];
-    [movePath moveToPoint:oldPosition];
-    [movePath addLineToPoint:newPosition];
-    CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    moveAnim.path = movePath.CGPath;
-    moveAnim.removedOnCompletion = YES;
-    moveAnim.fillMode = kCAFillModeForwards;
     
-    
-    UIBezierPath *resizePath = [UIBezierPath bezierPath];
-    [resizePath moveToPoint:oldSize];
-    [resizePath addLineToPoint:newSize];
-    CAKeyframeAnimation *resizeAnim = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
-    resizeAnim.path = resizePath.CGPath;
-    resizeAnim.removedOnCompletion = YES;
-    resizeAnim.fillMode = kCAFillModeForwards;
-    
-    UIBezierPath *boundsPath = [UIBezierPath bezierPath];
-    [boundsPath moveToPoint:oldOrigin];
-    [boundsPath addLineToPoint:newOrigin];
-    CAKeyframeAnimation *boundsAnim = [CAKeyframeAnimation animationWithKeyPath:@"bounds.origin"];
-    boundsAnim.path = boundsPath.CGPath;
-    boundsAnim.removedOnCompletion = YES;
-    boundsAnim.fillMode = kCAFillModeForwards;
-    
-    CAAnimationGroup *animPosGroup = [CAAnimationGroup animation];
-    animPosGroup.animations = [NSArray arrayWithObjects:moveAnim, nil];
-    animPosGroup.duration = 0.5;
-    
-    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.animations = [NSArray arrayWithObjects:resizeAnim, boundsAnim, nil];
-    animGroup.duration = 0.5;
-    
-    [self removeAllAnimations];
-    [self addAnimation:animPosGroup forKey:@"position"];
-    [self addAnimation:animGroup forKey:nil];
+//    UIBezierPath *resizePath = [UIBezierPath bezierPath];
+//    [resizePath moveToPoint:oldSize];
+//    [resizePath addLineToPoint:newSize];
+//    CAKeyframeAnimation *resizeAnim = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
+//    resizeAnim.path = resizePath.CGPath;
+//    resizeAnim.removedOnCompletion = YES;
+//    resizeAnim.fillMode = kCAFillModeForwards;
+//    
+//    UIBezierPath *boundsPath = [UIBezierPath bezierPath];
+//    [boundsPath moveToPoint:oldOrigin];
+//    [boundsPath addLineToPoint:newOrigin];
+//    CAKeyframeAnimation *boundsAnim = [CAKeyframeAnimation animationWithKeyPath:@"bounds.origin"];
+//    boundsAnim.path = boundsPath.CGPath;
+//    boundsAnim.removedOnCompletion = YES;
+//    boundsAnim.fillMode = kCAFillModeForwards;
+//    
+//    CAAnimationGroup *animPosGroup = [CAAnimationGroup animation];
+//    animPosGroup.animations = [NSArray arrayWithObjects:moveAnim, nil];
+//    animPosGroup.duration = 0.5;
+//    
+//    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+//    animGroup.animations = [NSArray arrayWithObjects:resizeAnim, boundsAnim, nil];
+//    animGroup.duration = 0.5;
+//    
+//    [self removeAllAnimations];
+//    [self addAnimation:animPosGroup forKey:@"position"];
+//    [self addAnimation:animGroup forKey:nil];
     
 }
 

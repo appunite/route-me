@@ -33,26 +33,27 @@
 @class RMMapContents;
 
 
-@interface RMLocationMarker : RMMapLayer <RMMovingMapLayer> {
+@interface RMLocationMarker : CALayer <RMMovingMapLayer> {
 @private
-	RMMapContents* mapContents;
-	CAShapeLayer* shapeLayer;
+	RMMapContents* _mapContents;
+    
+    UIImage * _markerDotImage;
 	
-	RMLatLong latLong;
-	RMProjectedPoint projectedLocation;
-	BOOL enableDragging;
-	BOOL enableRotation;
+	RMLatLong _latLong;
+	RMProjectedPoint _projectedLocation;
 	
-	UIColor* lineColor;
-	UIColor* fillColor;
-	CGFloat radiusInMeters;
-	CGFloat lineWidthInPixels;
-	BOOL scaleLineWidth;
-	
-	CGMutablePathRef circlePath;
+	UIColor* _lineColor;
+	UIColor* _fillColor;
+	CGFloat _radiusInMeters;
+	CGFloat _lineWidthInPixels;
+    CGFloat _pixelRadius;
+    BOOL _headingVisible;
+    CLLocationDirection _magneticHeading;
+    
+    BOOL _enableDragging;
+    BOOL _enableRotation;
 }
 
-@property (nonatomic, retain) CAShapeLayer* shapeLayer;
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
 @property (assign) BOOL enableDragging;
 @property (assign) BOOL enableRotation;
@@ -60,6 +61,9 @@
 @property (nonatomic, retain) UIColor* fillColor;
 @property (nonatomic, assign) CGFloat radiusInMeters;
 @property (nonatomic, assign) CGFloat lineWidthInPixels;
+
+@property (nonatomic, assign) BOOL headingVisible;
+@property (nonatomic, assign) CLLocationDirection magneticHeading;
 
 - (id)initWithContents:(RMMapContents*)aContents radiusInMeters:(CGFloat)newRadiusInMeters latLong:(RMLatLong)newLatLong;
 - (void)moveToLatLong:(RMLatLong)newLatLong;
