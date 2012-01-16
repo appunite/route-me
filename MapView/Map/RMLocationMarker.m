@@ -56,6 +56,7 @@
 	self = [super init];
 	
 	if (self) {
+         self.contentsScale = [[UIScreen mainScreen] scale];
 		_markerDotImage = [UIImage imageNamed:@"marker-dot"];
 		_mapContents = aContents;
 		_radiusInMeters = newRadiusInMeters;
