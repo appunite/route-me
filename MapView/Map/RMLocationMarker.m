@@ -87,6 +87,11 @@
 	[super dealloc];
     [_markerDotImage release];
     _markerDotImage = nil;
+    
+    CGImageRelease(_previousCircleMask);
+    CGImageRelease(_previousTriangleMask);
+    CGImageRelease(_accurracyCircleMask);
+    CGGradientRelease(_gradient);
 }
 
 #pragma mark -
@@ -94,6 +99,13 @@
 
 
 - (CGImageRef) createMaskTriangle: (CGRect) rect {
+    if (CGRectEqualToRect(_previousTriangleMaskRect, rect)) {
+        return _previousTriangleMask;
+    }
+    
+    _previousTriangleMaskRect = rect;
+    CGImageRelease(_previousTriangleMask);
+    
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef maskContext = CGBitmapContextCreate (NULL, CGRectGetWidth(rect), CGRectGetHeight(rect), 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
     CGColorSpaceRelease(colorSpace);    
@@ -119,13 +131,18 @@
     
     
     
-    CGImageRef alphaMask = CGBitmapContextCreateImage(maskContext);
+    _previousTriangleMask = CGBitmapContextCreateImage(maskContext);
     CGContextRelease(maskContext);
     
-    return alphaMask;
+    return _previousTriangleMask;
 }
 
 - (CGImageRef) createCircleMask: (CGRect) rect {
+    if (CGRectEqualToRect(_previusCircleMaskRect, _previusCircleMaskRect))
+        return _previousCircleMask;
+    _previusCircleMaskRect = rect;
+    CGImageRelease(_previousCircleMask);
+
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef maskContext = CGBitmapContextCreate (NULL, CGRectGetWidth(rect), CGRectGetHeight(rect), 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
     CGColorSpaceRelease(colorSpace);    
@@ -147,10 +164,10 @@
     
     
     
-    CGImageRef alphaMask = CGBitmapContextCreateImage(maskContext);
+    _previousCircleMask = CGBitmapContextCreateImage(maskContext);
     CGContextRelease(maskContext);
     
-    return alphaMask;
+    return _previousCircleMask;
 }
 
 - (CGImageRef) createImageMaskFromImage: (CGImageRef) image {
@@ -165,18 +182,19 @@
 }
 
 - (CGGradientRef) createGradient {
-    CGGradientRef myGradient;
-    CGColorSpaceRef myColorspace;
+    if (_gradient)
+        return _gradient;
+    
     size_t num_locations = 3;
     CGFloat locations[3] = { 0.0, 0.2, 0.7 };
     CGFloat components[12] = { 0xfe/255.0, 0xfe/255.0, 0xfe/255.0, 0.9,  // Start color
         0xfe/255.0, 0xfe/255.0, 0xfe/255.0, 0.9,  // Middle color
         0xfe/255.0, 0xfe/255.0, 0xfe/255.0, 0.0 }; // End color
-    myColorspace = CGColorSpaceCreateDeviceRGB();
-    myGradient = CGGradientCreateWithColorComponents (myColorspace, components,
+    CGColorSpaceRef myColorspace = CGColorSpaceCreateDeviceRGB();
+    _gradient = CGGradientCreateWithColorComponents (myColorspace, components,
                                                       locations, num_locations);
     CGColorSpaceRelease(myColorspace);
-    return myGradient;
+    return _gradient;
 }
 
 - (void) paintRadialGradient: (CGContextRef) ctx rectangle: (CGRect) rectangle {
@@ -193,8 +211,6 @@
     CGContextDrawRadialGradient (ctx, myGradient, myStartPoint,
                                  myStartRadius, myEndPoint, myEndRadius,
                                  kCGGradientDrawsAfterEndLocation);
-    CGGradientRelease(myGradient);
-    
 }
 
 - (void)updateCirclePath {
@@ -217,6 +233,49 @@
     [self setNeedsDisplay];
 }
 
+- (CGImageRef) createAccurracyCircle: (CGRect) rectangle {
+    
+    if (CGRectEqualToRect(_accurracyCircleRect, rectangle))
+        return _accurracyCircleMask;
+    _accurracyCircleRect = rectangle;
+    CGImageRelease(_accurracyCircleMask);
+
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef ctx = CGBitmapContextCreate (NULL, CGRectGetWidth(rectangle), CGRectGetHeight(rectangle), 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
+    CGColorSpaceRelease(colorSpace); 
+    
+    CGRect rect = CGRectMake(0.0, 0.0, CGRectGetWidth(rectangle), CGRectGetHeight(rectangle));
+    
+    CGImageRef triangleImage= [self createMaskTriangle:rect];
+    
+    CGImageRef triangleMask = [self createImageMaskFromImage:triangleImage];
+    
+    CGImageRef circleImage = [self createCircleMask:rect];
+    
+    CGImageRef circleMask = [self createImageMaskFromImage:circleImage];
+    
+    
+    CGContextSaveGState(ctx);
+    CGContextClipToMask(ctx, rectangle, triangleMask);
+    CGContextClipToMask(ctx, rectangle, circleMask);
+    
+    [self paintRadialGradient:ctx rectangle:rectangle];
+    
+    CGContextRestoreGState(ctx);
+    
+    CGImageRelease(triangleMask);
+    //        CGImageRelease(triangleImage);
+    
+    CGImageRelease(circleMask);
+    //        CGImageRelease(circleImage);
+    
+    _accurracyCircleMask = CGBitmapContextCreateImage(ctx);
+
+    CGContextRelease(ctx);
+    
+    return _accurracyCircleMask;
+}
+
 - (void) drawAccurracyCircleInContext: (CGContextRef) ctx {
     
     CGRect rectangle = CGRectInset(self.bounds, 2.0f, 2.0f);
@@ -236,34 +295,20 @@
     if (_headingVisible) {
         
         CGRect rect = CGRectMake(0.0, 0.0, CGRectGetWidth(rectangle), CGRectGetHeight(rectangle));
-        
-        CGImageRef triangleImage= [self createMaskTriangle:rect];
-        
-        CGImageRef triangleMask = [self createImageMaskFromImage:triangleImage];
-        
-        CGImageRef circleImage = [self createCircleMask:rect];
-        
-        CGImageRef circleMask = [self createImageMaskFromImage:circleImage];
+
         
         CGContextSaveGState(ctx);
         CGContextTranslateCTM(ctx, CGRectGetMidX(rectangle), CGRectGetMidY(rectangle));
         CGContextRotateCTM(ctx, _magneticHeading);
         CGContextTranslateCTM(ctx, -CGRectGetMidX(rectangle), -CGRectGetMidY(rectangle));
         CGContextSaveGState(ctx);
-        CGContextClipToMask(ctx, rectangle, triangleMask);
-        CGContextClipToMask(ctx, rectangle, circleMask);
         
-        [self paintRadialGradient:ctx rectangle:rectangle];
-        
-        CGContextRestoreGState(ctx);
+        CGImageRef accurracyCircle = [self createAccurracyCircle:rect];
+        CGContextDrawImage(ctx, rectangle, accurracyCircle);
         
         CGContextRestoreGState(ctx);
         
-        CGImageRelease(triangleMask);
-        CGImageRelease(triangleImage);
-        
-        CGImageRelease(circleMask);
-        CGImageRelease(circleImage);
+        CGContextRestoreGState(ctx);
     }
 
     

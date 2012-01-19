@@ -33,7 +33,7 @@
 @class RMMapContents;
 
 
-@interface RMLocationMarker : CALayer <RMMovingMapLayer> {
+@interface RMLocationMarker : CAScrollLayer <RMMovingMapLayer> {
 @private
 	RMMapContents* _mapContents;
     
@@ -52,6 +52,17 @@
     
     BOOL _enableDragging;
     BOOL _enableRotation;
+    
+    CGRect _previusCircleMaskRect;
+    CGImageRef _previousCircleMask;
+    
+    CGRect _previousTriangleMaskRect;
+    CGImageRef _previousTriangleMask;
+    
+    CGGradientRef _gradient;
+    
+    CGImageRef _accurracyCircleMask;
+    CGRect _accurracyCircleRect;
 }
 
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
