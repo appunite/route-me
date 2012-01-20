@@ -143,6 +143,8 @@
 
 - (CGFloat)getMetersPerPixel {
     CGRect boundsInMercators = CGPathGetBoundingBox(_path);
+    if (CGPathIsEmpty(_path))
+        return 0.0f;
     RMProjectedRect projectedRect = RMMakeProjectedRect(boundsInMercators.origin.x, -boundsInMercators.origin.y - boundsInMercators.size.height, boundsInMercators.size.width, boundsInMercators.size.height);
     CGRect screenBounds = [_mapContents.mercatorToScreenProjection screenBounds];
     float scaleX = projectedRect.size.width / screenBounds.size.width;

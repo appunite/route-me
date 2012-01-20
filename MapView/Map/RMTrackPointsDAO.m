@@ -93,7 +93,7 @@
     self = [super init];
     if (self) {
         _trackPoints = [[NSMutableArray alloc] init];
-        _delegates = [[NSMutableSet alloc] init];
+        _delegates = [[NSMutableArray alloc] init];
     }
     return self;
 }     

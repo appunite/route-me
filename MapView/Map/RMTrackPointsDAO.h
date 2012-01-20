@@ -22,7 +22,7 @@
 @interface RMTrackPointsDAO : NSObject {
     NSMutableArray *_trackPoints;
     
-    NSMutableSet *_delegates;
+    NSMutableArray *_delegates;
     RMMarker *_startingMarker;
     RMMarker *_stopMarker;
 }
