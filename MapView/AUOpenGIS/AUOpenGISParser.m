@@ -32,6 +32,7 @@
     
     NSArray *coordinates = [coordinatesString componentsSeparatedByString: @","];
     NSMutableArray *retArray = [NSMutableArray arrayWithCapacity:[coordinates count]];
+    
     for (NSString *components in coordinates) {
         NSArray *coordArray = [components componentsSeparatedByString:@" "];
         if ([coordArray count] < 2 ) {
@@ -42,7 +43,9 @@
             NSLog(@"Unknown format with coordinates > 4");
             continue;            
         }
-         AUOpenGISCoordinate *location = [[AUOpenGISCoordinate alloc] initWith:[AUOpenGISParser stringToNumber:[coordArray objectAtIndex:0]] y:[AUOpenGISParser stringToNumber:[coordArray objectAtIndex:1]]];
+        NSNumber *xCord = [AUOpenGISParser stringToNumber:[coordArray objectAtIndex:0]];
+        NSNumber *yCord = [AUOpenGISParser stringToNumber:[coordArray objectAtIndex:1]];
+         AUOpenGISCoordinate *location = [[AUOpenGISCoordinate alloc] initWith:xCord y:yCord];
         
         if ([coordArray count] > 2) {
             location.z = [AUOpenGISParser stringToNumber:[coordArray objectAtIndex:2]] ;

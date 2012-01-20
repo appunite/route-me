@@ -25,9 +25,11 @@
     CGRect bounds = CGRectMake(projectedBounds.origin.easting, -projectedBounds.origin.northing - projectedBounds.size.height, projectedBounds.size.width, projectedBounds.size.height);
     
     bounds = RMScaleCGRectAboutPoint(bounds, _scale, CGPointZero);
+
     
     CGRect boundsInMercators = CGPathGetBoundingBox(_path);
     boundsInMercators = RMScaleCGRectAboutPoint(boundsInMercators, _scale, CGPointZero);
+//    boundsInMercators = CGRectInset(boundsInMercators, _lineWidth * (1.0 / _scale), _lineWidth * (1.0 / _scale));
     CGPoint position = CGPointMake(CGRectGetMidX(boundsInMercators) - CGRectGetMinX(bounds),CGRectGetMidY(boundsInMercators) - CGRectGetMinY(bounds));
     [super setBounds:boundsInMercators];
     
@@ -63,8 +65,10 @@
 - (void)setTrackPointsDAO:(RMTrackPointsDAO *)trackPointsDAO {
     if (_trackPointsDAO != nil) {
         [_trackPointsDAO removeDelegate:self];
+        [_trackPointsDAO release];
+        _trackPointsDAO = nil;
     }
-    _trackPointsDAO = trackPointsDAO;
+    _trackPointsDAO = [trackPointsDAO retain];
     if (trackPointsDAO == nil)
         return;
     [trackPointsDAO addDelegate:self];
@@ -91,8 +95,9 @@
 
 - (void)drawInContext:(CGContextRef)ctx
 {
-    [_lock lock];
     CGRect boundsInMercators = CGPathGetBoundingBox(_path);
+    
+//    boundsInMercators = CGRectInset(boundsInMercators, -_lineWidth * (1.0 / _scale), -_lineWidth * (1.0 / _scale));
     CGFloat scale = CGRectGetWidth(self.bounds) / CGRectGetWidth(boundsInMercators);
     
 //    CGRect rect = CGContextGetClipBoundingBox(ctx);
@@ -112,7 +117,6 @@
 	CGContextSetShadow(ctx, _shadowOffset, _shadowBlur);
 	
 	CGContextDrawPath(ctx, _drawingMode);
-    [_lock unlock];
 }
 
 - (void)zoomByFactor:(float)zoomFactor near:(CGPoint)center {
@@ -128,9 +132,7 @@
 }
 
 - (void)moveBy:(CGSize)delta {
-    [_lock lock];
     [super moveBy:delta];
-    [_lock unlock];
 }
 
 #pragma mark - public methods
@@ -159,11 +161,13 @@
 {
 	self = [super init];
     if (self) {
+        self.contentsScale = [[UIScreen mainScreen] scale];
         // styles
         _lineWidth = 2.0;
         _lineJoin = kCGLineJoinMiter;
         _lineCap = kCGLineCapButt;
-        _lineColor = [UIColor blackColor];
+        _lineColor = [[UIColor colorWithRed:255.0f/255.0f green:25.0f/255.0f blue:0.0f/255.0f alpha:0.8] retain];
+//        _lineColor = [UIColor blueColor];
         _fillColor = [UIColor redColor];
         _shadowBlur = 0.0;
         _shadowOffset = CGSizeMake(0, 0);
@@ -172,8 +176,6 @@
         _mapContents = mapContents;
         _path = CGPathCreateMutable();
         
-        _lock = [[NSLock alloc] init];
-        
 //        self.levelsOfDetail = 30;
 //        self.levelsOfDetailBias = 30;
     }
@@ -181,9 +183,12 @@
 }
 
 - (void)dealloc {
+    [_lineColor release];
     CGPathRelease(_path);
     if (_trackPointsDAO != nil) {
         [_trackPointsDAO removeDelegate:self];
+        [_trackPointsDAO release];
+        _trackPointsDAO = nil;
     }
 }
 

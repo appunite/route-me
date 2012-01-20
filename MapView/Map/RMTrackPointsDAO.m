@@ -29,7 +29,10 @@
 #pragma mark loading from string
 
 - (void) loadedFromString: (NSMutableArray *) trackPoints {
-    _trackPoints = trackPoints;
+    [_trackPoints release];
+    _trackPoints = nil;
+    
+    _trackPoints = [trackPoints retain];
     NSLog(@"finished parsing: %d read", [trackPoints count]);
     [self callNewData];
 }
@@ -38,6 +41,7 @@
     NSArray * trackPoints = [AUOpenGISParser parseLineString:data];
     NSMutableArray * mutableTrackPoints = [trackPoints mutableCopy];
     [self performSelectorOnMainThread:@selector(loadedFromString:) withObject:mutableTrackPoints waitUntilDone:false];
+    [mutableTrackPoints release];
 }
 
 - (void) loadFromString: (NSString*) data {
@@ -46,6 +50,9 @@
 }
 
 - (void) clearPoints {
+    [_trackPoints release];
+    _trackPoints = nil;
+    
     _trackPoints = [[NSMutableArray alloc] init];
     [self callNewData];
 }
@@ -68,7 +75,7 @@
         for (id<RMTrackPointsDAODelegate> delegate in _delegates) {
             [delegate setStartingMarker:newMarker atLatLong:location];
         }        
-        
+        [_startingMarker release];
         _startingMarker = newMarker;
     }
 }
@@ -81,7 +88,8 @@
         RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage anchorPoint:CGPointMake(0.5, 1.0)];
         for (id<RMTrackPointsDAODelegate> delegate in _delegates) {
             [delegate setStartingMarker:newMarker atLatLong:location];
-        }        
+        } 
+        [_stopMarker release];
         _stopMarker = newMarker;
     }
 }
@@ -96,7 +104,12 @@
         _delegates = [[NSMutableArray alloc] init];
     }
     return self;
-}     
+}   
+
+- (void)dealloc {
+    [_trackPoints release];
+    [_delegates release];
+}
 
 
 @end

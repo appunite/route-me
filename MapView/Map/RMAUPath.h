@@ -18,8 +18,6 @@
 	RMMapContents *_mapContents;
     RMTrackPointsDAO * _trackPointsDAO;
     
-    NSLock *_lock;
-    
     CGFloat _lineWidth;
     CGMutablePathRef _path;
     CGFloat _scale;

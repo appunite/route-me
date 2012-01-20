@@ -171,7 +171,7 @@
 }
 
 - (CGImageRef) createImageMaskFromImage: (CGImageRef) image {
-    return CGImageMaskCreate(CGImageGetWidth(image)
+    CGImageRef imageMask = CGImageMaskCreate(CGImageGetWidth(image)
                              , CGImageGetHeight(image)
                              , CGImageGetBitsPerComponent(image)
                              , CGImageGetBitsPerPixel(image)
@@ -179,6 +179,7 @@
                              ,  CGImageGetDataProvider(image)
                              , NULL
                              , false);
+    return imageMask;
 }
 
 - (CGGradientRef) createGradient {
@@ -263,11 +264,12 @@
     
     CGContextRestoreGState(ctx);
     
+    CGImageRelease(circleMask);
+    //        CGImageRelease(circleImage);
+    
     CGImageRelease(triangleMask);
     //        CGImageRelease(triangleImage);
     
-    CGImageRelease(circleMask);
-    //        CGImageRelease(circleImage);
     
     _accurracyCircleMask = CGBitmapContextCreateImage(ctx);
 
