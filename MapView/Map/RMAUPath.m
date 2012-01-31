@@ -95,6 +95,8 @@
 
 - (void)drawInContext:(CGContextRef)ctx
 {
+    if (CGPathIsEmpty(_path))
+        return;
     CGRect boundsInMercators = CGPathGetBoundingBox(_path);
     
 //    boundsInMercators = CGRectInset(boundsInMercators, -_lineWidth * (1.0 / _scale), -_lineWidth * (1.0 / _scale));

@@ -57,7 +57,7 @@
 	
 	if (self) {
          self.contentsScale = [[UIScreen mainScreen] scale];
-		_markerDotImage = [UIImage imageNamed:@"marker-dot"];
+		_markerDotImage = [[UIImage imageNamed:@"marker-dot"] retain];
 		_mapContents = aContents;
 		_radiusInMeters = newRadiusInMeters;
 		_latLong = newLatLong;
@@ -66,8 +66,8 @@
 //		DLog(@"Position: %f, %f", [self position].x, [self position].y);
 		
 		_lineWidthInPixels = kDefaultLineWidth;
-		_lineColor = kDefaultLineColor;
-		_fillColor = kDefaultFillColor;
+		_lineColor = [kDefaultLineColor retain];
+		_fillColor = [kDefaultFillColor retain];
 		_enableRotation = NO;
         _enableDragging = NO;
         _headingVisible = NO;
