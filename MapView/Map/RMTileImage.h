@@ -38,9 +38,16 @@ typedef NSImage UIImage;
 #import "RMTile.h"
 #import "RMTileProxy.h"
 #import "FMDatabase.h"
+#import <QuartzCore/QuartzCore.h>
 
 @class RMTileImage;
 @class NSData;
+
+@interface RMTileLayer : CALayer {
+@private
+    
+}
+@end
 
 @interface RMTileImage : NSObject {
 	// I know this is a bit nasty.
@@ -53,7 +60,7 @@ typedef NSImage UIImage;
 	/// \bug placing the "layer" on the RMTileImage implicitly assumes that a particular RMTileImage will be used in only 
 	/// one UIView. Might see some interesting crashes if you have two RMMapViews using the same tile source.
 	// Only used when appropriate
-	CALayer *layer;
+	RMTileLayer *layer;
 }
 
 - (id) initWithTile: (RMTile)tile;

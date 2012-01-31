@@ -34,6 +34,17 @@
 #import "RMPixel.h"
 #import <QuartzCore/QuartzCore.h>
 
+@implementation RMTileLayer
+- (id<CAAction>)actionForKey:(NSString *)key
+{
+	if ([key isEqualToString:@"position"]
+		|| [key isEqualToString:@"bounds"])
+		return nil;
+	
+	else return [super actionForKey:key];
+}
+@end
+
 @implementation RMTileImage
 
 @synthesize tile, layer, lastUsedTime;
@@ -170,7 +181,7 @@
 {
 	if (layer == nil)
 	{
-		layer = [[CALayer alloc] init];
+		layer = [[RMTileLayer alloc] init];
 		layer.contents = nil;
 		layer.anchorPoint = CGPointZero;
 		layer.bounds = CGRectMake(0, 0, screenLocation.size.width, screenLocation.size.height);
