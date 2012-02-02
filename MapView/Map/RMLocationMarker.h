@@ -48,7 +48,7 @@
 	CGFloat _lineWidthInPixels;
     CGFloat _pixelRadius;
     BOOL _headingVisible;
-    CLLocationDirection _magneticHeading;
+    CLLocationDirection _heading;
     
     BOOL _enableDragging;
     BOOL _enableRotation;
@@ -74,7 +74,7 @@
 @property (nonatomic, assign) CGFloat lineWidthInPixels;
 
 @property (nonatomic, assign) BOOL headingVisible;
-@property (nonatomic, assign) CLLocationDirection magneticHeading;
+@property (nonatomic, assign) CLLocationDirection heading;
 
 - (id)initWithContents:(RMMapContents*)aContents radiusInMeters:(CGFloat)newRadiusInMeters latLong:(RMLatLong)newLatLong;
 - (void)moveToLatLong:(RMLatLong)newLatLong;

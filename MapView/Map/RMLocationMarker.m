@@ -71,7 +71,7 @@
 		_enableRotation = NO;
         _enableDragging = NO;
         _headingVisible = NO;
-        _magneticHeading = 0.0f;
+        _heading = 0.0f;
 		
 		[self updateCirclePath];
 	}
@@ -301,7 +301,7 @@
         
         CGContextSaveGState(ctx);
         CGContextTranslateCTM(ctx, CGRectGetMidX(rectangle), CGRectGetMidY(rectangle));
-        CGContextRotateCTM(ctx, _magneticHeading);
+        CGContextRotateCTM(ctx, _heading);
         CGContextTranslateCTM(ctx, -CGRectGetMidX(rectangle), -CGRectGetMidY(rectangle));
         CGContextSaveGState(ctx);
         
@@ -417,8 +417,8 @@
     [self setNeedsDisplay];
 }
 
-- (void)setMagneticHeading:(CLLocationDirection)magneticHeading {
-    _magneticHeading = magneticHeading;
+- (void)setHeading:(CLLocationDirection)heading {
+    _heading = heading;
     [self setNeedsDisplay];
 }
 
@@ -426,8 +426,8 @@
     return _headingVisible;
 }
 
-- (CLLocationDirection)magneticHeading {
-    return _magneticHeading;
+- (CLLocationDirection)heading {
+    return _heading;
 }
 
 @end
