@@ -38,7 +38,9 @@
 	RMMapContents* _mapContents;
     
     UIImage * _markerDotImage;
-	
+    CGFloat _markerRadius;    
+    
+    
 	RMLatLong _latLong;
 	RMProjectedPoint _projectedLocation;
 	
@@ -72,6 +74,7 @@
 @property (nonatomic, retain) UIColor* fillColor;
 @property (nonatomic, assign) CGFloat radiusInMeters;
 @property (nonatomic, assign) CGFloat lineWidthInPixels;
+@property (nonatomic, assign) CGFloat markerRadius;
 
 @property (nonatomic, assign) BOOL headingVisible;
 @property (nonatomic, assign) CLLocationDirection heading;

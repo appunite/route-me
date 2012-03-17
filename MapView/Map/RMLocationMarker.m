@@ -52,6 +52,7 @@
 @synthesize enableDragging = _enableDragging;
 @synthesize enableRotation = _enableRotation;
 @synthesize markerDotImage = _markerDotImage;
+@synthesize markerRadius = _markerRadius;
 
 - (id)initWithContents:(RMMapContents*)aContents radiusInMeters:(CGFloat)newRadiusInMeters latLong:(RMLatLong)newLatLong {
 	self = [super init];
@@ -73,7 +74,8 @@
         _enableDragging = NO;
         _headingVisible = NO;
         _heading = 0.0f;
-		
+		_markerRadius = 6.0f;
+        
 		[self updateCirclePath];
 	}
 	
@@ -320,15 +322,11 @@
     
         
         
-        
-        
-
     
-    CGFloat pixelRadius = 12.0f/2.0f;
-    CGRect rectangle = CGRectMake(CGRectGetMidX(self.bounds) - pixelRadius, 
-                                 CGRectGetMidY(self.bounds) - pixelRadius, 
-                                 (pixelRadius * 2), 
-                                 (pixelRadius * 2));
+    CGRect rectangle = CGRectMake(CGRectGetMidX(self.bounds) - _markerRadius, 
+                                 CGRectGetMidY(self.bounds) - _markerRadius, 
+                                 (_markerRadius * 2), 
+                                 (_markerRadius * 2));
     
     CGContextSaveGState(ctx);
 
