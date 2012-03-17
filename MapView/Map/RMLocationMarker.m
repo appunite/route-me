@@ -51,6 +51,7 @@
 @synthesize lineWidthInPixels=_lineWidthInPixels;
 @synthesize enableDragging = _enableDragging;
 @synthesize enableRotation = _enableRotation;
+@synthesize markerDotImage = _markerDotImage;
 
 - (id)initWithContents:(RMMapContents*)aContents radiusInMeters:(CGFloat)newRadiusInMeters latLong:(RMLatLong)newLatLong {
 	self = [super init];
@@ -310,13 +311,18 @@
         
         CGContextRestoreGState(ctx);
         
-        CGContextRestoreGState(ctx);
+//        CGContextRestoreGState(ctx);
     }
-
     
 }
 
 - (void) drawDotInContext: (CGContextRef)ctx {
+    
+        
+        
+        
+        
+
     
     CGFloat pixelRadius = 12.0f/2.0f;
     CGRect rectangle = CGRectMake(CGRectGetMidX(self.bounds) - pixelRadius, 
@@ -325,6 +331,15 @@
                                  (pixelRadius * 2));
     
     CGContextSaveGState(ctx);
+
+    if (_enableRotation) {
+        CGContextSaveGState(ctx);
+        CGContextTranslateCTM(ctx, CGRectGetMidX(rectangle), CGRectGetMidY(rectangle));
+        CGContextRotateCTM(ctx, _heading);
+        CGContextTranslateCTM(ctx, -CGRectGetMidX(rectangle), -CGRectGetMidY(rectangle));
+        CGContextSaveGState(ctx);
+
+    }
     
     CGContextDrawImage(ctx, rectangle, _markerDotImage.CGImage);
     CGContextRestoreGState(ctx);

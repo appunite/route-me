@@ -75,6 +75,7 @@
 
 @property (nonatomic, assign) BOOL headingVisible;
 @property (nonatomic, assign) CLLocationDirection heading;
+@property (nonatomic, retain) UIImage *markerDotImage;
 
 - (id)initWithContents:(RMMapContents*)aContents radiusInMeters:(CGFloat)newRadiusInMeters latLong:(RMLatLong)newLatLong;
 - (void)moveToLatLong:(RMLatLong)newLatLong;
