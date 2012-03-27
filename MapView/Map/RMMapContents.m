@@ -88,11 +88,33 @@
 	  			    zoomLevel:kDefaultInitialZoomLevel
 				 maxZoomLevel:kDefaultMaximumZoomLevel
 				 minZoomLevel:kDefaultMinimumZoomLevel
-			  backgroundImage:nil];
+			  backgroundImage:nil
+                  screenScale:0];
+}
+
+- (id)initWithView: (UIView*) view screenScale:(float)theScreenScale {
+    LogMethod();
+	CLLocationCoordinate2D here;
+	here.latitude = kDefaultInitialLatitude;
+	here.longitude = kDefaultInitialLongitude;
+	
+	return [self initWithView:view
+				   tilesource:[[RMOpenStreetMapSource alloc] init]
+				 centerLatLon:here
+	  			    zoomLevel:kDefaultInitialZoomLevel
+				 maxZoomLevel:kDefaultMaximumZoomLevel
+				 minZoomLevel:kDefaultMinimumZoomLevel
+			  backgroundImage:nil
+                  screenScale:theScreenScale];
 }
 
 - (id)initWithView: (UIView*) view
 		tilesource:(id<RMTileSource>)newTilesource
+{
+    return [self initWithView:view tilesource:newTilesource screenScale:0.0];
+}
+
+-(id)initWithView:(UIView *)view tilesource:(id<RMTileSource>)newTilesource screenScale:(float)theScreenScale
 {	
 	LogMethod();
 	CLLocationCoordinate2D here;
@@ -105,7 +127,8 @@
 					zoomLevel:kDefaultInitialZoomLevel
 				 maxZoomLevel:kDefaultMaximumZoomLevel
 				 minZoomLevel:kDefaultMinimumZoomLevel
-			  backgroundImage:nil];
+			  backgroundImage:nil
+                  screenScale:theScreenScale];
 }
 
 - (id)initWithView:(UIView*)newView
@@ -115,6 +138,7 @@
 	  maxZoomLevel:(float)maxZoomLevel
 	  minZoomLevel:(float)minZoomLevel
    backgroundImage:(UIImage *)backgroundImage
+       screenScale:(float)theScreenScale
 {
 	LogMethod();
 	if (![super init])
@@ -130,11 +154,7 @@
 	imagesOnScreen = nil;
 	tileLoader = nil;
     
-    screenScale = 1.0;
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-    {
-        screenScale = [[[UIScreen mainScreen] valueForKey:@"scale"] floatValue];
-    }
+    screenScale = (theScreenScale == 0.0 ? 1.0 : theScreenScale);
 
 	boundingMask = RMMapMinWidthBound;
 
@@ -436,6 +456,7 @@
 		[imagesOnScreen zoomByFactor:zoomFactor near:pivot];
 		[tileLoader zoomByFactor:zoomFactor near:pivot];
 		[overlay zoomByFactor:zoomFactor near:pivot];
+        [overlay correctPositionOfAllSublayers];
 		[renderer setNeedsDisplay];
 	} 
 }
@@ -515,6 +536,7 @@
             [imagesOnScreen zoomByFactor:zoomFactor near:pivot];
             [tileLoader zoomByFactor:zoomFactor near:pivot];
             [overlay zoomByFactor:zoomFactor near:pivot];
+            [overlay correctPositionOfAllSublayers];
             [renderer setNeedsDisplay];
         }
     }
@@ -816,6 +838,10 @@
     return [mercatorToScreenProjection metersPerPixel] / screenScale;
 }
 
+- (void)setScaledMetersPerPixel:(float)newMPP {
+    [self setMetersPerPixel:newMPP * screenScale];
+}
+
 -(void)setMaxZoom:(float)newMaxZoom
 {
 	maxZoom = newMaxZoom;
@@ -830,7 +856,7 @@
 
 -(float) zoom
 {
-        return [mercatorToTileProjection calculateZoomFromScale:[mercatorToScreenProjection metersPerPixel]];
+        return [mercatorToTileProjection calculateZoomFromScale:[self scaledMetersPerPixel]];
 }
 
 /// if #zoom is outside of range #minZoom to #maxZoom, zoom level is clamped to that range.
@@ -841,7 +867,7 @@
 
         float scale = [mercatorToTileProjection calculateScaleFromZoom:zoom];
 
-        [self setMetersPerPixel:scale];
+        [self setScaledMetersPerPixel:scale];
 }
 
 -(RMTileImageSet*) imagesOnScreen

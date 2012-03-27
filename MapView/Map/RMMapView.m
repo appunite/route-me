@@ -75,6 +75,8 @@
 	decelerationFactor = kDefaultDecelerationFactor;
 	deceleration = NO;
 	
+    screenScale = 0.0;
+    
 	//	[self recalculateImageSet];
 	
 	if (enableZoom || enableRotate)
@@ -89,9 +91,15 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
+    return [self initWithFrame:frame screenScale:0.0];
+}
+
+- (id)initWithFrame:(CGRect)frame screenScale:(float)theScreenScale
+{
 	LogMethod();
 	if (self = [super initWithFrame:frame]) {
 		[self performInitialSetup];
+        screenScale = theScreenScale;
 	}
 	return self;
 }
@@ -114,7 +122,7 @@
 - (RMMapContents *)contents
 {
     if (!_contentsIsSet) {
-		RMMapContents *newContents = [[RMMapContents alloc] initWithView:self];
+		RMMapContents *newContents = [[RMMapContents alloc] initWithView:self screenScale:screenScale];
 		self.contents = newContents;
 		[newContents release];
 		_contentsIsSet = YES;
@@ -193,6 +201,7 @@
 	
 	_delegateHasTapOnMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnMarker:onMap:)];
 	_delegateHasTapOnLabelForMarker = [(NSObject*) delegate respondsToSelector:@selector(tapOnLabelForMarker:onMap:)];
+	_delegateHasTapOnLabelForMarkerOnLayer = [(NSObject*) delegate respondsToSelector:@selector(tapOnLabelForMarker:onMap:onLayer:)];
 	
 	_delegateHasAfterMapTouch  = [(NSObject*) delegate respondsToSelector: @selector(afterMapTouch:)];
    
@@ -349,7 +358,7 @@
 			zRect.size.height = screenBounds.size.height * metersPerPixel;
 			 
 			//can zoom only if within bounds
-			canZoom= !(zRect.origin.northing < SWconstraint.northing || zRect.origin.northing+zRect.size.height> NEconstraint.northing ||
+			canZoom= zoomDelta > 0 || !(zRect.origin.northing < SWconstraint.northing || zRect.origin.northing+zRect.size.height> NEconstraint.northing ||
 			  zRect.origin.easting < SWconstraint.easting || zRect.origin.easting+zRect.size.width > NEconstraint.easting);
 				
 		}
@@ -514,8 +523,7 @@
 		}
 	}
 
-	// I don't understand what the difference between this and touchesEnded is.
-	[self touchesEnded:touches withEvent:event];
+	[self delayedResumeExpensiveOperations];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -586,10 +594,16 @@
 					if (_delegateHasTapOnLabelForMarker) {
 						[delegate tapOnLabelForMarker:(RMMarker*)superlayer onMap:self];
 					}
+                    if (_delegateHasTapOnLabelForMarkerOnLayer) {
+                        [delegate tapOnLabelForMarker:(RMMarker*)superlayer onMap:self onLayer:hit];
+                    }
 				} else if ([superlayer superlayer] != nil && [[superlayer superlayer] isKindOfClass: [RMMarker class]]) {
                                         if (_delegateHasTapOnLabelForMarker) {
                                                 [delegate tapOnLabelForMarker:(RMMarker*)[superlayer superlayer] onMap:self];
                                         } 
+                    if (_delegateHasTapOnLabelForMarkerOnLayer) {
+                        [delegate tapOnLabelForMarker:(RMMarker*)[superlayer superlayer] onMap:self onLayer:hit];
+                    }
 				} else if (_delegateHasSingleTapOnMap) {
 					[delegate singleTapOnMap: self At: [touch locationInView:self]];
 				}

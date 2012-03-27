@@ -126,6 +126,7 @@ typedef struct {
 	float decelerationFactor;
 	BOOL deceleration;
         CGFloat rotation;
+    float screenScale;
 	
 @private
    	BOOL _delegateHasBeforeMapMove;
@@ -139,6 +140,7 @@ typedef struct {
 	BOOL _delegateHasSingleTapOnMap;
 	BOOL _delegateHasTapOnMarker;
 	BOOL _delegateHasTapOnLabelForMarker;
+	BOOL _delegateHasTapOnLabelForMarkerOnLayer;
 	BOOL _delegateHasAfterMapTouch;
 	BOOL _delegateHasShouldDragMarker;
 	BOOL _delegateHasDidDragMarker;
@@ -172,6 +174,8 @@ typedef struct {
 
 @property (readonly) CGFloat rotation;
 
+- (id)initWithFrame:(CGRect)frame;
+- (id)initWithFrame:(CGRect)frame screenScale:(float)screenScale;
 - (id)initWithFrame:(CGRect)frame WithLocation:(CLLocationCoordinate2D)latlong;
 
 /// recenter the map on #latlong, expressed as CLLocationCoordinate2D (latitude/longitude)

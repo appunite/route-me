@@ -224,6 +224,8 @@
 		DDA3E85713B00D9E004D861C /* RMMapQuestOSMSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E85513B00D9E004D861C /* RMMapQuestOSMSource.m */; };
 		DDCD58D31406F8A400F59E0D /* RMTileStreamSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DDCD58D11406F8A300F59E0D /* RMTileStreamSource.h */; };
 		DDCD58D41406F8A400F59E0D /* RMTileStreamSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DDCD58D21406F8A300F59E0D /* RMTileStreamSource.m */; };
+		F56554F8146E002B00623AC9 /* RMURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = F56554F6146E002B00623AC9 /* RMURLConnectionOperation.h */; };
+		F56554F9146E002B00623AC9 /* RMURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F56554F7146E002B00623AC9 /* RMURLConnectionOperation.m */; };
 		F5C12D2A0F8A86CA00A894D2 /* RMGeoHash.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C12D280F8A86CA00A894D2 /* RMGeoHash.h */; };
 		F5C12D2B0F8A86CA00A894D2 /* RMGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C12D290F8A86CA00A894D2 /* RMGeoHash.m */; };
 /* End PBXBuildFile section */
@@ -429,6 +431,8 @@
 		DDA3E85513B00D9E004D861C /* RMMapQuestOSMSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapQuestOSMSource.m; sourceTree = "<group>"; };
 		DDCD58D11406F8A300F59E0D /* RMTileStreamSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileStreamSource.h; sourceTree = "<group>"; };
 		DDCD58D21406F8A300F59E0D /* RMTileStreamSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileStreamSource.m; sourceTree = "<group>"; };
+		F56554F6146E002B00623AC9 /* RMURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMURLConnectionOperation.h; sourceTree = "<group>"; };
+		F56554F7146E002B00623AC9 /* RMURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMURLConnectionOperation.m; sourceTree = "<group>"; };
 		F5C12D280F8A86CA00A894D2 /* RMGeoHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGeoHash.h; sourceTree = "<group>"; };
 		F5C12D290F8A86CA00A894D2 /* RMGeoHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGeoHash.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -653,6 +657,8 @@
 		B83E64CE0E80E73F001663B6 /* Tile Images */ = {
 			isa = PBXGroup;
 			children = (
+				F56554F6146E002B00623AC9 /* RMURLConnectionOperation.h */,
+				F56554F7146E002B00623AC9 /* RMURLConnectionOperation.m */,
 				B83E64D80E80E73F001663B6 /* RMTileImage.h */,
 				B83E64D90E80E73F001663B6 /* RMTileImage.m */,
 				D1437B30122869E400888DAE /* RMDBTileImage.m */,
@@ -955,6 +961,7 @@
 				BB2DF75814BAE05900AF0859 /* AUOpenGISCoordinate.h in Headers */,
 				BB2DF75A14BAE05900AF0859 /* AUOpenGISParser.h in Headers */,
 				BBD6450314C0730400E0460E /* RMLocationMarker.h in Headers */,
+				F56554F8146E002B00623AC9 /* RMURLConnectionOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1276,6 +1283,7 @@
 				BB2DF75914BAE05900AF0859 /* AUOpenGISCoordinate.m in Sources */,
 				BB2DF75B14BAE05900AF0859 /* AUOpenGISParser.m in Sources */,
 				BBD6450414C0730400E0460E /* RMLocationMarker.m in Sources */,
+				F56554F9146E002B00623AC9 /* RMURLConnectionOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

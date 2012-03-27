@@ -1,5 +1,5 @@
 //
-//  RMWebTileImage.h
+//  RMTileCacheSource.h
 //
 // Copyright (c) 2008-2009, Route-Me Contributors
 // All rights reserved.
@@ -25,40 +25,31 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#import <Foundation/Foundation.h>
-#import "RMTileImage.h"
+#import "RMAbstractMercatorWebSource.h"
 
-#import "RMURLConnectionOperation.h"
+/*! 
+ brief Subclass of RMAbstractMercatorWebSource for access to a fully-seeded TileCache source.
+ 
+ TileCache directory zoom levels do not necessarily correspond to the internal zoom levels of
+ route-me.  That is, route-me's default zoom level of 0 is comprised of 4 tiles (2x2), while
+ a TileCache source could be constructed of some other power of 2, such as 64 tiles (8x8).  
+ When itializing a TileCache source with initWithTSURL:zoomAdj:fileType, zoomAdj must be equal 
+ to the power of 2 that corresponds to the number of tiles on one axis your TileCache directory.
+ Therefore, given the previous example of 64 tiles from 8 tiles on each axis, zoomAdj = 3, 
+ as 2^3 = 8.
+*/
 
-static const NSUInteger kWebTileRetries = 30;
-static const NSUInteger kMaxConcurrentConnections = 5;
-
-extern NSString *RMWebTileImageErrorDomain;
-
-extern NSString *RMWebTileImageHTTPResponseCodeKey;
-enum {
-    RMWebTileImageErrorUnexpectedHTTPResponse,
-    RMWebTileImageErrorZeroLengthResponse,
-    RMWebTileImageErrorNotFoundResponse
-};
-
-extern NSString *RMWebTileImageNotificationErrorKey;
-
-
-
-/// RMTileImage subclass: a tile image loaded from a URL.
-@interface RMWebTileImage : RMTileImage {
-    NSUInteger retries;
-    NSError *lastError;
-
-	NSURL *url;
-    RMURLConnectionOperation *connectionOp;
-
-	NSMutableData *data;
+@interface RMTileCacheSource : RMAbstractMercatorWebSource <RMAbstractMercatorWebSource> {
+	@private
+	NSString *_shortName;
+	NSString *urlSource;
+	NSInteger zoomAdjustment;
+	NSString *fileType;
 }
 
-- (id) initWithTile: (RMTile)tile FromURL:(NSString*)url;
-- (void) requestTile;
-- (void) startLoading:(NSTimer *)timer;
+- (id) initWithTSUrl:(NSString*)tileCacheUrl zoomAdj:(NSInteger)adj fileType:(NSString*)type;
+
+-(NSString*) urlForTile: (RMTile)tile;
+-(NSString*) zeropad: (NSInteger)number :(NSInteger)length;
 
 @end
