@@ -10,13 +10,13 @@
 #import "AUOpenGISCoordinate.h"
 #import <RMMarker.h>
 
-
 @class RMTrackPointsDAO;
 
 @protocol RMTrackPointsDAODelegate <NSObject>
 - (void) trackPointsDAONewData: (RMTrackPointsDAO *) trackPointDAO;
 - (void) setStartingMarker: (RMMarker *)marker atLatLong:(CLLocationCoordinate2D)location;
 - (void) setStopMarker: (RMMarker *)marker atLatLong:(CLLocationCoordinate2D)location;
+- (void) removeMarkers:(NSArray *)markers;
 @end
 
 @interface RMTrackPointsDAO : NSObject {
@@ -26,6 +26,8 @@
     RMMarker *_startingMarker;
     RMMarker *_stopMarker;
 }
+
++ (RMTrackPointsDAO *)sharedRMTrackPointsDAO;
 
 - (void) clearPoints;
 - (void) addPoint:(AUOpenGISCoordinate *) coordinate;

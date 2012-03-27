@@ -1,3 +1,4 @@
+
 //
 //  RMAUPath.m
 //  MapView
@@ -165,7 +166,7 @@
     if (self) {
         self.contentsScale = [[UIScreen mainScreen] scale];
         // styles
-        _lineWidth = 3.0;
+        _lineWidth = 2.0;
         _lineJoin = kCGLineJoinMiter;
         _lineCap = kCGLineCapButt;
         _lineColor = [[UIColor colorWithRed:255.0f/255.0f green:25.0f/255.0f blue:0.0f/255.0f alpha:0.8] retain];

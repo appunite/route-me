@@ -9,7 +9,17 @@
 #import "RMTrackPointsDAO.h"
 #import "AUOpenGISParser.h"
 
+static RMTrackPointsDAO *sharedTrackPoints;
+
 @implementation RMTrackPointsDAO
+
++ (RMTrackPointsDAO *)sharedRMTrackPointsDAO
+{
+    if (!sharedTrackPoints) {
+        sharedTrackPoints = [[RMTrackPointsDAO alloc] init];
+    }
+    return sharedTrackPoints;
+}
 
 #pragma mark delegate
 
@@ -53,6 +63,16 @@
     [_trackPoints release];
     _trackPoints = nil;
     
+    NSArray *markers = [NSArray arrayWithObjects:_startingMarker, _stopMarker, nil];
+    
+    for (id<RMTrackPointsDAODelegate> delegate in _delegates) {
+        if ([delegate respondsToSelector:@selector(removeMarkers:)]) {
+            [delegate removeMarkers:markers];
+        }
+    } 
+    [_startingMarker release], _startingMarker = nil;
+    [_stopMarker release], _stopMarker = nil;
+    
     _trackPoints = [[NSMutableArray alloc] init];
     [self callNewData];
 }
@@ -69,7 +89,7 @@
 - (void) setStartingPoint:(CLLocationCoordinate2D)location
 {
     if (!_startingMarker) {
-        UIImage* markerImage = [UIImage imageNamed:@"green_point.tiff"];
+        UIImage* markerImage = [UIImage imageNamed:@"marker_start"];
         
         RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage anchorPoint:CGPointMake(0.5, 1.0)];
         for (id<RMTrackPointsDAODelegate> delegate in _delegates) {
@@ -83,11 +103,11 @@
 - (void) setStopPoint:(CLLocationCoordinate2D)location
 {
     if (!_stopMarker) {
-        UIImage* markerImage = [UIImage imageNamed:@"red_point.tiff"];
+        UIImage* markerImage = [UIImage imageNamed:@"marker_end"];
         
         RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:markerImage anchorPoint:CGPointMake(0.5, 1.0)];
         for (id<RMTrackPointsDAODelegate> delegate in _delegates) {
-            [delegate setStartingMarker:newMarker atLatLong:location];
+            [delegate setStopMarker:newMarker atLatLong:location];
         } 
         [_stopMarker release];
         _stopMarker = newMarker;
