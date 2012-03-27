@@ -66,10 +66,9 @@
 - (void)setTrackPointsDAO:(RMTrackPointsDAO *)trackPointsDAO {
     if (_trackPointsDAO != nil) {
         [_trackPointsDAO removeDelegate:self];
-        [_trackPointsDAO release];
         _trackPointsDAO = nil;
     }
-    _trackPointsDAO = [trackPointsDAO retain];
+    _trackPointsDAO = trackPointsDAO;
     if (trackPointsDAO == nil)
         return;
     [trackPointsDAO addDelegate:self];
@@ -169,7 +168,7 @@
         _lineWidth = 2.0;
         _lineJoin = kCGLineJoinMiter;
         _lineCap = kCGLineCapButt;
-        _lineColor = [[UIColor colorWithRed:255.0f/255.0f green:25.0f/255.0f blue:0.0f/255.0f alpha:0.8] retain];
+        _lineColor = [UIColor colorWithRed:255.0f/255.0f green:25.0f/255.0f blue:0.0f/255.0f alpha:0.8];
 //        _lineColor = [UIColor blueColor];
         _fillColor = [UIColor redColor];
         _shadowBlur = 0.0;
@@ -186,11 +185,9 @@
 }
 
 - (void)dealloc {
-    [_lineColor release];
     CGPathRelease(_path);
     if (_trackPointsDAO != nil) {
         [_trackPointsDAO removeDelegate:self];
-        [_trackPointsDAO release];
         _trackPointsDAO = nil;
     }
 }

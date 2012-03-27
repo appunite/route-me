@@ -33,7 +33,7 @@
     if((self = [super init]))
     {
         _delegate = delegate;
-        _request = [request retain];
+        _request = request;
         _isRunning = YES;
     }
     return self;
@@ -45,10 +45,9 @@
         return;
     }
     _connection = [[NSURLConnection alloc] initWithRequest:_request delegate:_delegate startImmediately:YES];
-    [_request release];_request = nil;
+    _request = nil;
     while (_isRunning && ![self isCancelled] && [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
     [_connection cancel];
-    [_connection release];
     _connection = nil; 
 }
 
@@ -56,9 +55,5 @@
     _isRunning = NO;
 }
 
--(void)dealloc {
-    [_request release];
-    [super dealloc];
-}
 
 @end

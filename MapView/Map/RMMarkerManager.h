@@ -33,11 +33,11 @@
 @class RMProjection;
 
 @interface RMMarkerManager : NSObject {
-	RMMapContents *contents;
+	RMMapContents *__unsafe_unretained contents;
         CGAffineTransform rotationTransform;
 }
 
-@property (assign, readwrite)  RMMapContents *contents;
+@property (unsafe_unretained, readwrite)  RMMapContents *contents;
 
 - (id)initWithContents:(RMMapContents *)mapContents;
 

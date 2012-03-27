@@ -39,10 +39,9 @@ static RMTrackPointsDAO *sharedTrackPoints;
 #pragma mark loading from string
 
 - (void) loadedFromString: (NSMutableArray *) trackPoints {
-    [_trackPoints release];
     _trackPoints = nil;
     
-    _trackPoints = [trackPoints retain];
+    _trackPoints = trackPoints;
     NSLog(@"finished parsing: %d read", [trackPoints count]);
     [self callNewData];
 }
@@ -51,7 +50,6 @@ static RMTrackPointsDAO *sharedTrackPoints;
     NSArray * trackPoints = [AUOpenGISParser parseLineString:data];
     NSMutableArray * mutableTrackPoints = [trackPoints mutableCopy];
     [self performSelectorOnMainThread:@selector(loadedFromString:) withObject:mutableTrackPoints waitUntilDone:false];
-    [mutableTrackPoints release];
 }
 
 - (void) loadFromString: (NSString*) data {
@@ -60,7 +58,6 @@ static RMTrackPointsDAO *sharedTrackPoints;
 }
 
 - (void) clearPoints {
-    [_trackPoints release];
     _trackPoints = nil;
     
     NSArray *markers = [NSArray arrayWithObjects:_startingMarker, _stopMarker, nil];
@@ -70,8 +67,8 @@ static RMTrackPointsDAO *sharedTrackPoints;
             [delegate removeMarkers:markers];
         }
     } 
-    [_startingMarker release], _startingMarker = nil;
-    [_stopMarker release], _stopMarker = nil;
+    _startingMarker = nil;
+    _stopMarker = nil;
     
     _trackPoints = [[NSMutableArray alloc] init];
     [self callNewData];
@@ -95,7 +92,6 @@ static RMTrackPointsDAO *sharedTrackPoints;
         for (id<RMTrackPointsDAODelegate> delegate in _delegates) {
             [delegate setStartingMarker:newMarker atLatLong:location];
         }        
-        [_startingMarker release];
         _startingMarker = newMarker;
     }
 }
@@ -109,7 +105,6 @@ static RMTrackPointsDAO *sharedTrackPoints;
         for (id<RMTrackPointsDAODelegate> delegate in _delegates) {
             [delegate setStopMarker:newMarker atLatLong:location];
         } 
-        [_stopMarker release];
         _stopMarker = newMarker;
     }
 }
@@ -126,10 +121,6 @@ static RMTrackPointsDAO *sharedTrackPoints;
     return self;
 }   
 
-- (void)dealloc {
-    [_trackPoints release];
-    [_delegates release];
-}
 
 
 @end

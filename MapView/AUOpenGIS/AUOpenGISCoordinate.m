@@ -49,11 +49,5 @@
     return ret;
 }
 
-- (void)dealloc {
-    [_x retain];
-    [_y retain];
-    [_z retain];
-    [_m retain];
-}
 
 @end

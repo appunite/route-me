@@ -38,7 +38,7 @@
 	NSUInteger minimalPurge;
 }
 
-@property (retain) NSString* databasePath;
+@property  NSString* databasePath;
 
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir;
 -(id) initWithDatabase: (NSString*)path;

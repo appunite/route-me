@@ -73,14 +73,14 @@
 
 @property (nonatomic, assign) float lineWidth;
 @property (nonatomic, assign) BOOL	scaleLineWidth;
-@property (nonatomic, readwrite, assign) NSArray *lineDashLengths;
+@property (nonatomic, readwrite, unsafe_unretained) NSArray *lineDashLengths;
 @property CGFloat lineDashPhase;
 @property BOOL scaleLineDash;
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
 @property (assign) BOOL enableDragging;
 @property (assign) BOOL enableRotation;
-@property (nonatomic, readwrite, assign) UIColor *lineColor;
-@property (nonatomic, readwrite, assign) UIColor *fillColor;
+@property (nonatomic, readwrite) UIColor *lineColor;
+@property (nonatomic, readwrite) UIColor *fillColor;
 @property (nonatomic, readonly) CGPathRef CGPath;
 @property (nonatomic, readonly) RMProjectedRect projectedBounds;
 @end

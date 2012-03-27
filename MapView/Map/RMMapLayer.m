@@ -56,6 +56,12 @@
 	else return [super actionForKey:key];
 }
 
+/// Fixed arc problem with Receiver type for instance message is a forward declaration 
+- (CALayer *)hitTest:(CGPoint)thePoint
+{
+    return [super hitTest:thePoint];
+}
+
 - (void)moveBy: (CGSize) delta
 {
     CGPoint oldPosition = self.position;

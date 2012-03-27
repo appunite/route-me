@@ -32,6 +32,7 @@
 
 #import "RMTilesUpdateDelegate.h"
 
+#import <QuartzCore/QuartzCore.h>
 
 // constants for boundingMask
 enum {
@@ -135,23 +136,23 @@ enum {
 
 @property (nonatomic, readonly) float screenScale;
 
-@property (readonly)  RMTileImageSet *imagesOnScreen;
-@property (readonly)  RMTileLoader *tileLoader;
+@property (unsafe_unretained, readonly)  RMTileImageSet *imagesOnScreen;
+@property (unsafe_unretained, readonly)  RMTileLoader *tileLoader;
 
-@property (readonly)  RMProjection *projection;
-@property (readonly)  id<RMMercatorToTileProjection> mercatorToTileProjection;
-@property (readonly)  RMMercatorToScreenProjection *mercatorToScreenProjection;
+@property (unsafe_unretained, readonly)  RMProjection *projection;
+@property (unsafe_unretained, readonly)  id<RMMercatorToTileProjection> mercatorToTileProjection;
+@property (unsafe_unretained, readonly)  RMMercatorToScreenProjection *mercatorToScreenProjection;
 
-@property (retain, readwrite) id<RMTileSource> tileSource;
-@property (retain, readwrite) RMMapRenderer *renderer;
+@property ( readwrite) id<RMTileSource> tileSource;
+@property ( readwrite) RMMapRenderer *renderer;
 
-@property (readonly)  CALayer *layer;
+@property (unsafe_unretained, readonly)  CALayer *layer;
 
-@property (retain, readwrite) RMMapLayer *background;
-@property (retain, readwrite) RMLayerCollection *overlay;
-@property (retain, readonly)  RMMarkerManager *markerManager;
+@property ( readwrite) RMMapLayer *background;
+@property ( readwrite) RMLayerCollection *overlay;
+@property ( readonly)  RMMarkerManager *markerManager;
 /// \bug probably shouldn't be retaining this delegate
-@property (nonatomic, retain) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
+@property (nonatomic) id<RMTilesUpdateDelegate> tilesUpdateDelegate;
 @property (readwrite) NSUInteger boundingMask;
 /// The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
 @property (readonly)double scaleDenominator;

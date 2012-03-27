@@ -90,7 +90,6 @@
 	CGPathRelease(path);
     self.lineColor = nil;
     self.fillColor = nil;
-	[super dealloc];
 }
 
 - (id<CAAction>)actionForKey:(NSString *)key {
@@ -171,16 +170,14 @@
 
 - (void)setLineColor:(UIColor *)aLineColor {
     if (lineColor != aLineColor) {
-        [lineColor release];
-        lineColor = [aLineColor retain];
+        lineColor = aLineColor;
 		[self setNeedsDisplay];
     }
 }
 
 - (void)setFillColor:(UIColor *)aFillColor {
     if (fillColor != aFillColor) {
-        [fillColor release];
-        fillColor = [aFillColor retain];
+        fillColor = aFillColor;
 		[self setNeedsDisplay];
     }
 }

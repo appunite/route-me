@@ -60,9 +60,9 @@
 
 @property float minZoom;
 @property float maxZoom;
-@property (retain) NSString *name;
-@property (retain) NSString *uniqueTilecacheKey;
-@property (retain) RMWMS *wms;
+@property  NSString *name;
+@property  NSString *uniqueTilecacheKey;
+@property  RMWMS *wms;
 
 -(NSString*) bboxForTile: (RMTile) tile;
 -(float) resolutionAtZoom : (int) zoom ;

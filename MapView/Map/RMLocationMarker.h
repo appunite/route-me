@@ -70,15 +70,15 @@
 @property (nonatomic, assign) RMProjectedPoint projectedLocation;
 @property (assign) BOOL enableDragging;
 @property (assign) BOOL enableRotation;
-@property (nonatomic, retain) UIColor* lineColor;
-@property (nonatomic, retain) UIColor* fillColor;
+@property (nonatomic) UIColor* lineColor;
+@property (nonatomic) UIColor* fillColor;
 @property (nonatomic, assign) CGFloat radiusInMeters;
 @property (nonatomic, assign) CGFloat lineWidthInPixels;
 @property (nonatomic, assign) CGFloat markerRadius;
 
 @property (nonatomic, assign) BOOL headingVisible;
 @property (nonatomic, assign) CLLocationDirection heading;
-@property (nonatomic, retain) UIImage *markerDotImage;
+@property (nonatomic) UIImage *markerDotImage;
 
 - (id)initWithContents:(RMMapContents*)aContents radiusInMeters:(CGFloat)newRadiusInMeters latLong:(RMLatLong)newLatLong;
 - (void)moveToLatLong:(RMLatLong)newLatLong;

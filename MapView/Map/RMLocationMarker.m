@@ -59,7 +59,7 @@
 	
 	if (self) {
          self.contentsScale = [[UIScreen mainScreen] scale];
-		_markerDotImage = [[UIImage imageNamed:@"marker-dot"] retain];
+		_markerDotImage = [UIImage imageNamed:@"marker-dot"];
 		_mapContents = aContents;
 		_radiusInMeters = newRadiusInMeters;
 		_latLong = newLatLong;
@@ -68,8 +68,8 @@
 //		DLog(@"Position: %f, %f", [self position].x, [self position].y);
 		
 		_lineWidthInPixels = kDefaultLineWidth;
-		_lineColor = [kDefaultLineColor retain];
-		_fillColor = [kDefaultFillColor retain];
+		_lineColor = kDefaultLineColor;
+		_fillColor = kDefaultFillColor;
 		_enableRotation = NO;
         _enableDragging = NO;
         _headingVisible = NO;
@@ -83,13 +83,8 @@
 }
 
 - (void)dealloc {
-	[_lineColor release];
 	_lineColor = nil;
-	[_fillColor release];
 	_fillColor = nil;
-	[super dealloc];
-    [_markerDotImage release];
-    _markerDotImage = nil;
     
     CGImageRelease(_previousCircleMask);
     CGImageRelease(_previousTriangleMask);
@@ -363,16 +358,14 @@
 
 - (void)setLineColor:(UIColor*)newLineColor {
 	if (_lineColor != newLineColor) {
-		[_lineColor release];
-		_lineColor = [newLineColor retain];
+		_lineColor = newLineColor;
 		[self updateCirclePath];
 	}
 }
 
 - (void)setFillColor:(UIColor*)newFillColor {
 	if (_fillColor != newFillColor) {
-		[_fillColor release];
-		_fillColor = [newFillColor retain];
+		_fillColor = newFillColor;
 		[self updateCirclePath];
 	}
 }

@@ -1,5 +1,5 @@
 //
-//  RMLayerSet.m
+//  RMLayerCollection.m
 //
 // Copyright (c) 2008-2009, Route-Me Contributors
 // All rights reserved.
@@ -30,6 +30,8 @@
 #import "RMMercatorToScreenProjection.h"
 #import "RMMarker.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @implementation RMLayerCollection
 
 - (id)initForContents: (RMMapContents *)_contents
@@ -46,10 +48,8 @@
 
 - (void) dealloc 
 {
-	[sublayers release];
 	sublayers = nil;
 	mapContents = nil;
-	[super dealloc];
 }
 
 
@@ -138,6 +138,12 @@
 	[sublayers insertObject:layer atIndex:index];
 	[super insertSublayer:layer atIndex:index];
 }
+}
+
+/// Fixed arc issue with Receiver type for instance message is a forward declaration
+- (CALayer *)hitTest:(CGPoint)p
+{
+    return [super hitTest:p];
 }
 
 /*

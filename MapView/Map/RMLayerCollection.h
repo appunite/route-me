@@ -1,5 +1,5 @@
 //
-//  RMLayerSet.h
+//  RMLayerCollection.h
 //
 // Copyright (c) 2008-2009, Route-Me Contributors
 // All rights reserved.
@@ -28,6 +28,8 @@
 #import <Foundation/Foundation.h>
 #import "RMFoundation.h"
 #import "RMMapLayer.h"
+
+#import <QuartzCore/QuartzCore.h>
 
 @class RMMapRenderer;
 @class RMMapContents;
@@ -70,5 +72,6 @@
 //-(CALayer*) layer;
 /// Orders layers in the collection based on their position in the map, prioritizing instances/subclass instances of RMMarker above other layers. This is called automatically in addSublayer.
 - (void)orderLayers;
+- (CALayer *)hitTest:(CGPoint)p;
 
 @end

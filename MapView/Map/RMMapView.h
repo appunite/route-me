@@ -84,6 +84,9 @@ git clone git://github.com/route-me/route-me.git
  */
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import <QuartzCore/CALayer.h>
+#import <QuartzCore/CATiledLayer.h>
 #import <CoreGraphics/CGGeometry.h>
 
 #import "RMNotifications.h"
@@ -157,18 +160,18 @@ typedef struct {
 
 /// Any other functionality you need to manipulate the map you can access through this
 /// property. The RMMapContents class holds the actual map bits.
-@property (nonatomic, retain) RMMapContents *contents;
+@property (nonatomic) RMMapContents *contents;
 
 // View properties
 @property (readwrite) BOOL enableDragging;
 @property (readwrite) BOOL enableZoom;
 @property (readwrite) BOOL enableRotate;
 
-@property (nonatomic, retain, readonly) RMMarkerManager *markerManager;
+@property (nonatomic, readonly) RMMarkerManager *markerManager;
 
 // do not retain the delegate so you can let the corresponding controller implement the
 // delegate without circular references
-@property (assign) id<RMMapViewDelegate> delegate;
+@property (unsafe_unretained) id<RMMapViewDelegate> delegate;
 @property (readwrite) float decelerationFactor;
 @property (readwrite) BOOL deceleration;
 

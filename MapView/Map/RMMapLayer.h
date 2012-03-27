@@ -40,6 +40,9 @@
 #import "RMFoundation.h"
 @protocol RMMovingMapLayer
 
+- (CALayer *)hitTest:(CGPoint)thePoint;
+
+
 @property (assign, nonatomic) RMProjectedPoint projectedLocation;
 @property (assign) BOOL enableDragging;
 @property (assign) BOOL enableRotation;

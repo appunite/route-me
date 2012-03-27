@@ -78,13 +78,12 @@
 -(id) init
 {
 	[NSException raise:@"Invalid initialiser" format:@"Use the designated initialiser for TileImage"];
-	[self release];
 	return nil;
 }
 
 + (RMTileImage*) dummyTile: (RMTile)tile
 {
-	return [[[RMTileImage alloc] initWithTile:tile] autorelease];
+	return [[RMTileImage alloc] initWithTile:tile];
 }
 
 - (void)dealloc
@@ -93,10 +92,7 @@
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
-	[layer release]; layer = nil;
-	[lastUsedTime release]; lastUsedTime = nil;
 	
-	[super dealloc];
 }
 
 -(void)draw
@@ -105,12 +101,12 @@
 
 + (RMTileImage*)imageForTile:(RMTile) _tile withURL: (NSString*)url
 {
-	return [[[RMWebTileImage alloc] initWithTile:_tile FromURL:url] autorelease];
+	return [[RMWebTileImage alloc] initWithTile:_tile FromURL:url];
 }
 
 + (RMTileImage*)imageForTile:(RMTile) _tile fromFile: (NSString*)filename
 {
-	return [[[RMFileTileImage alloc] initWithTile:_tile FromFile:filename] autorelease];
+	return [[RMFileTileImage alloc] initWithTile:_tile FromFile:filename];
 }
 
 + (RMTileImage*)imageForTile:(RMTile) tile withData: (NSData*)data
@@ -123,13 +119,12 @@
 
 	tileImage = [[self alloc] initWithTile:tile];
 	[tileImage updateImageUsingImage:image];
-	[image release];
-	return [tileImage autorelease];
+	return tileImage;
 }
 
 + (RMTileImage*)imageForTile:(RMTile) _tile fromDB: (FMDatabase*)db
 {
-	return [[[RMDBTileImage alloc] initWithTile: _tile fromDB:db] autorelease];
+	return [[RMDBTileImage alloc] initWithTile: _tile fromDB:db];
 }
 
 -(void) cancelLoading
@@ -171,8 +166,7 @@
 
 -(void) touch
 {
-	[lastUsedTime release];
-	lastUsedTime = [[NSDate date] retain];
+	lastUsedTime = [NSDate date];
 }
 
 - (BOOL)isEqual:(id)anObject

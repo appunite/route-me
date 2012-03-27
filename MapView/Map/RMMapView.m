@@ -36,6 +36,10 @@
 #import "RMProjection.h"
 #import "RMMarkerManager.h"
 
+#import "RMLayerCollection.h"
+
+
+
 @interface RMMapView (PrivateMethods)
 // methods for post-touch deceleration, ala UIScrollView
 - (void)startDecelerationWithDelta:(CGSize)delta;
@@ -124,7 +128,6 @@
     if (!_contentsIsSet) {
 		RMMapContents *newContents = [[RMMapContents alloc] initWithView:self screenScale:screenScale];
 		self.contents = newContents;
-		[newContents release];
 		_contentsIsSet = YES;
 	}
 	return contents; 
@@ -132,8 +135,7 @@
 - (void)setContents:(RMMapContents *)theContents
 {
     if (contents != theContents) {
-        [contents release];
-        contents = [theContents retain];
+        contents = theContents;
 		_contentsIsSet = YES;
 		[self performInitialSetup];
     }
@@ -143,7 +145,6 @@
 {
 	LogMethod();
 	self.contents = nil;
-	[super dealloc];
 }
 
 -(void) drawRect: (CGRect) rect
@@ -482,7 +483,8 @@
 	UITouch *touch = [[touches allObjects] objectAtIndex:0];
 	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
 	//so it can be handled there
-	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
+    
+	CALayer *furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesBegan:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesBegan:withEvent:) withObject:touches withObject:event];
@@ -515,7 +517,7 @@
 	
 	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
 	//so it can be handled there
-	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
+	CALayer *furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesCancelled:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesCancelled:withEvent:) withObject:touches withObject:event];
@@ -532,7 +534,7 @@
 	
 	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
 	//so it can be handled there
-	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
+	CALayer *furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
 	if ([[furthestLayerDown class]isSubclassOfClass: [RMMarker class]]) {
 		if ([furthestLayerDown respondsToSelector:@selector(touchesEnded:withEvent:)]) {
 			[furthestLayerDown performSelector:@selector(touchesEnded:withEvent:) withObject:touches withObject:event];

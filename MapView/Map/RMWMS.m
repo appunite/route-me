@@ -59,7 +59,7 @@
 }
 
 - (NSString *)urlPrefix {
-    return [urlPrefix retain];
+    return urlPrefix;
 }
 
 -(void)setUrlPrefix:(NSString *)newUrlPrefix
@@ -74,8 +74,7 @@
         }
     }
     
-    [urlPrefix release];
-    urlPrefix = [newUrlPrefix retain];
+    urlPrefix = newUrlPrefix;
 }
 
 -(NSString *)createBaseGet:(NSString *)bbox size:(CGSize)size
@@ -186,17 +185,7 @@
 - (void) dealloc
 {
     [self setUrlPrefix:nil];
-    [self setLayers:nil];
-    [self setStyles:nil];
-    [self setQueryLayers:nil];
-    [self setCrs:nil];
-    [self setInfoFormat:nil];
-    [self setFormat:nil];
-    [self setService:nil];
-    [self setVersion:nil];
-    [self setExceptions:nil];
     
-    [super dealloc];
 }
 
 @end
