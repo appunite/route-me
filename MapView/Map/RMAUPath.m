@@ -16,6 +16,10 @@
 
 @implementation RMAUPath
 
+@synthesize lineWidth = _lineWidth;
+@synthesize lineColor = _lineColor;
+@synthesize fillColor = _fillColor;
+
 - (void) rescalePoints {
     
     RMMercatorToScreenProjection * projection = [_mapContents mercatorToScreenProjection];
@@ -27,22 +31,24 @@
     
     bounds = RMScaleCGRectAboutPoint(bounds, _scale, CGPointZero);
 
-    
-    CGRect boundsInMercators = CGPathGetBoundingBox(_path);
-    boundsInMercators = RMScaleCGRectAboutPoint(boundsInMercators, _scale, CGPointZero);
-//    boundsInMercators = CGRectInset(boundsInMercators, _lineWidth * (1.0 / _scale), _lineWidth * (1.0 / _scale));
-    CGPoint position = CGPointMake(CGRectGetMidX(boundsInMercators) - CGRectGetMinX(bounds),CGRectGetMidY(boundsInMercators) - CGRectGetMinY(bounds));
-    [super setBounds:boundsInMercators];
-    
-    [self setPosition:position];
+    @synchronized(self) {
+        CGRect boundsInMercators = CGPathGetBoundingBox(_path);
+        boundsInMercators = RMScaleCGRectAboutPoint(boundsInMercators, _scale, CGPointZero);
+        //    boundsInMercators = CGRectInset(boundsInMercators, _lineWidth * (1.0 / _scale), _lineWidth * (1.0 / _scale));
+        CGPoint position = CGPointMake(CGRectGetMidX(boundsInMercators) - CGRectGetMinX(bounds),CGRectGetMidY(boundsInMercators) - CGRectGetMinY(bounds));
+        [super setBounds:boundsInMercators];
+        
+        [self setPosition:position];
+    }
     [self setNeedsDisplay];
-    
 }
 
 - (void) getNewTrackPoints {
-    if (!CGPathIsEmpty(_path)) {
-        CGPathRelease(_path);
-        _path = CGPathCreateMutable();
+    @synchronized (self) {
+        if (!CGPathIsEmpty(_path)) {
+            CGPathRelease(_path);
+            _path = CGPathCreateMutable();
+        }
     }
     BOOL first = YES;
     
@@ -95,6 +101,7 @@
 
 - (void)drawInContext:(CGContextRef)ctx
 {
+    @synchronized(self) {
     if (CGPathIsEmpty(_path))
         return;
     CGRect boundsInMercators = CGPathGetBoundingBox(_path);
@@ -119,6 +126,7 @@
 	CGContextSetShadow(ctx, _shadowOffset, _shadowBlur);
 	
 	CGContextDrawPath(ctx, _drawingMode);
+    }
 }
 
 - (void)zoomByFactor:(float)zoomFactor near:(CGPoint)center {

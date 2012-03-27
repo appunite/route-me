@@ -46,7 +46,9 @@
 - (id) initWithContents: (RMMapContents*)mapContents;
 
 @property (nonatomic, strong) RMTrackPointsDAO * trackPointsDAO;
-
+@property (nonatomic, assign) CGFloat lineWidth;
+@property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic, strong) UIColor *fillColor;
 
 
 @end
