@@ -38,6 +38,7 @@
 	RMMapContents* _mapContents;
     
     UIImage * _markerDotImage;
+    CGImageRef _markerDotImageRef;
     CGFloat _markerRadius;    
     
     

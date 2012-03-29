@@ -59,7 +59,7 @@
 	
 	if (self) {
          self.contentsScale = [[UIScreen mainScreen] scale];
-		_markerDotImage = [UIImage imageNamed:@"marker-dot"];
+		self.markerDotImage = [UIImage imageNamed:@"marker-dot"];
 		_mapContents = aContents;
 		_radiusInMeters = newRadiusInMeters;
 		_latLong = newLatLong;
@@ -92,9 +92,41 @@
     CGGradientRelease(_gradient);
 }
 
-#pragma mark -
+#pragma mark - setters/getters
+
+- (CGImageRef) createInflatedCGImageFromImage:(UIImage *)image {
+    CGImageRef sourceImage = image.CGImage;
+    
+    //Parameters needed to create the bitmap context
+    size_t width = CGImageGetWidth(sourceImage);
+    size_t height = CGImageGetHeight(sourceImage);
+    size_t bitsPerComponent = 8;    //Each component is 1 byte, so 8 bits
+    size_t bytesPerRow = 4 * width; //Uncompressed RGBA is 4 bytes per pixel
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    //Create uncompressed context, draw the compressed source image into it
+    //and save the resulting image.
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), sourceImage);
+    CGImageRef inflatedImage = CGBitmapContextCreateImage(context);
+    
+    //Tidy up
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    CGImageRelease(sourceImage);
+    
+    return inflatedImage;
+}
+
+- (void) setMarkerDotImage:(UIImage *)markerDotImage
+{
+    _markerDotImage = markerDotImage;
+    
+    _markerDotImageRef = [self createInflatedCGImageFromImage:_markerDotImage];
+}
 
 
+#pragma mark - Drawing methods
 
 - (CGImageRef) createMaskTriangle: (CGRect) rect {
     if (CGRectEqualToRect(_previousTriangleMaskRect, rect)) {
@@ -334,7 +366,7 @@
 
     }
     
-    CGContextDrawImage(ctx, rectangle, _markerDotImage.CGImage);
+    CGContextDrawImage(ctx, rectangle, _markerDotImageRef);
     CGContextRestoreGState(ctx);
 }
 
