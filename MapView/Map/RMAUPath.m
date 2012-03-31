@@ -99,6 +99,10 @@
     
 }
 
+- (void)removeMarkers:(NSArray *)markers {
+    
+}
+
 - (void)drawInContext:(CGContextRef)ctx
 {
     @synchronized(self) {

@@ -25,6 +25,9 @@
     NSMutableArray *_delegates;
     RMMarker *_startingMarker;
     RMMarker *_stopMarker;
+    
+    CLLocationCoordinate2D _startingLocation;
+    CLLocationCoordinate2D _stopLocation;
 }
 
 + (RMTrackPointsDAO *)sharedRMTrackPointsDAO;
@@ -35,6 +38,11 @@
 - (void) removeDelegate: (id<RMTrackPointsDAODelegate>) delegate;
 - (void) loadFromString: (NSString*) data;
 - (NSArray *) trackPoints;
+
+@property (nonatomic, strong) RMMarker *startingMarker;
+@property (nonatomic, strong) RMMarker *stopMarker;
+@property (nonatomic, assign) CLLocationCoordinate2D startingLocation;
+@property (nonatomic, assign) CLLocationCoordinate2D stopLocation;
 
 - (void) setStartingPoint:(CLLocationCoordinate2D)location;
 - (void) setStopPoint:(CLLocationCoordinate2D)location;
