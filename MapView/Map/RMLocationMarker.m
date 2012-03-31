@@ -122,7 +122,7 @@
 {
     _markerDotImage = markerDotImage;
     
-    _markerDotImageRef = [self createInflatedCGImageFromImage:_markerDotImage];
+    _markerDotImageRef = _markerDotImage.CGImage;
 }
 
 
