@@ -3,7 +3,7 @@
 //  Trail
 //
 //  Created by Karol Wojtaszek on 11-06-17.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 AppUnite.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

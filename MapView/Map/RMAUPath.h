@@ -3,7 +3,7 @@
 //  MapView
 //
 //  Created by Jacek Marchwicki on 1/9/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 AppUnite.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
